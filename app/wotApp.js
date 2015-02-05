@@ -1,4 +1,4 @@
-var wotApp = angular.module('wotApp', ['ui.router', 'ngAnimate', 'toaster', 'angular-loading-bar']);
+var wotApp = angular.module('wotApp', ['ui.router', 'ngAnimate', 'toaster', 'angular-loading-bar', 'kendo.directives']);
 
 wotApp.run(
     [          '$rootScope', '$state', '$stateParams',
@@ -28,6 +28,11 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/Things',
             templateUrl: 'pages/things.html',
             controller: 'thingController'
+        })
+        .state('ThingDetail', {
+            url: "/Things/:thingId",
+            templateUrl: 'pages/thingdetail.html',
+            controller: 'thingDetailController'
         })
         .state('Account', {
             url: '/Account',
