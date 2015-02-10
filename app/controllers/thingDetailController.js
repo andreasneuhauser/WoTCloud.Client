@@ -1,4 +1,14 @@
 wotApp.controller('thingDetailController', ['$scope', '$stateParams', 'ThingService', function($scope, $stateParams, ThingService) {
+
+    $scope.map = { center: { latitude: 40.1451, longitude: -99.6680 }, zoom: 6 };
+    $scope.marker = {
+        id: 0,
+        coords: {
+            latitude: 40.1451,
+            longitude: -99.6680
+        }
+    };
+
     $scope.thingId = $stateParams.thingId;
 
     $scope.gridColumns = [

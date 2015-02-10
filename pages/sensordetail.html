@@ -1,0 +1,44 @@
+<ol class="breadcrumb">
+    <li><a href="#/Home">Home</a></li>
+    <li><a href="#/Home">Things</a></li>
+    <li><a href="#/Home">{{thingId}}</a></li>
+    <li>Sensors</li>
+    <li class="active">{{sensorId}}</a></li>
+</ol>
+<div class="page-header">
+    <h1>Sensor {{sensorId}}</h1>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Details</h3>
+                </div>
+                <div class="panel-body">
+                    <h3>Last Value: {{lastValue}}</h3>
+                    <h5>updated {{lastUpdated}}</h5>
+                    <br />
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="New Value">
+                        </div>
+                        <button type="submit" class="btn btn-default">Add Value</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Chart</h3>
+                </div>
+                <div class="panel-body">
+                    <canvas id="line" class="chart chart-line" data="data"
+                            labels="labels" legend="true" series="series"
+                            click="onClick">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

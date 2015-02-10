@@ -1,4 +1,4 @@
-var wotApp = angular.module('wotApp', ['ui.router', 'ngAnimate', 'toaster', 'angular-loading-bar', 'kendo.directives']);
+var wotApp = angular.module('wotApp', ['ui.router', 'ngAnimate', 'toaster', 'angular-loading-bar', 'kendo.directives', 'uiGmapgoogle-maps', 'chart.js']);
 
 wotApp.run(
     [          '$rootScope', '$state', '$stateParams',
@@ -13,6 +13,14 @@ wotApp.run(
         }
     ]
 )
+
+wotApp.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.17',
+        libraries: 'weather,geometry,visualization'
+    });
+});
 
 wotApp.config(function($stateProvider, $urlRouterProvider) {
 
@@ -33,6 +41,11 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/Things/:thingId",
             templateUrl: 'pages/thingdetail.html',
             controller: 'thingDetailController'
+        })
+        .state('SensorDetail', {
+            url: "/Things/:thingId/Sensors/:sensorId",
+            templateUrl: 'pages/sensordetail.html',
+            controller: 'sensorDetailController'
         })
         .state('Account', {
             url: '/Account',
