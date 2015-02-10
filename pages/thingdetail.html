@@ -1,0 +1,31 @@
+<ol class="breadcrumb">
+    <li><a href="#/Home">Home</a></li>
+    <li><a href="#/Home">Things</a></li>
+    <li class="active">{{thingId}}</a></li>
+</ol>
+<div class="page-header">
+    <h1>Thing {{thingId}}</h1>
+    <br/>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Details</h3>
+        </div>
+        <div class="panel-body">
+            Panel content
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Sensoren</h3>
+        </div>
+        <div class="panel-body">
+            <div options="mainGridOptions"
+                 kendo-grid="sensorGrid"
+                 k-data-source="gridData"
+                 k-columns="gridColumns"
+                 k-selectable="true"
+                 k-groupable="true"
+                 k-on-change="selectedItem = dataItem"></div>
+        </div>
+    </div>
+</div>

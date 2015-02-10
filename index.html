@@ -14,6 +14,9 @@
     <link href="css/loading-bar.min.css" rel="stylesheet" />
     <link href="css/toaster.min.css" rel="stylesheet" />
 
+    <link href="css/kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="css/kendo/kendo.bootstrap.min.css" rel="stylesheet" />
+
     <!-- Custom styles for this template -->
     <link href="css/main.css" rel="stylesheet">
 
@@ -24,16 +27,24 @@
     <![endif]-->
 
     <!-- JavaScript -->
+    <script src="js/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <script src="js/angular-ui-router.min.js"></script>
     <script src="js/loading-bar.min.js"></script>
     <script src="js/angular-animate.min.js" ></script>
     <script src="js/toaster.min.js"></script>
+    <script src="js/kendo/kendo.all.min.js"></script>
 
     <script src="app/wotApp.js"></script>
+
+    <!-- Services -->
+    <script src="app/services/thingService.js"></script>
+
+    <!-- Controllers -->
     <script src="app/controllers/mainController.js"></script>
     <script src="app/controllers/thingController.js"></script>
     <script src="app/controllers/accountController.js"></script>
+    <script src="app/controllers/thingDetailController.js"></script>
 </head>
 
 <body ng-app="wotApp">
@@ -52,12 +63,12 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li ui-sref-active="active"><a ui-sref="Home">Home</a></li>
-                <li ui-sref-active="active"><a ui-sref="Things">Things</a></li>
+                <li ui-sref-active="active"><a ui-sref="Home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li ui-sref-active="active"><a ui-sref="Things"><span class="glyphicon glyphicon-globe"></span> Things</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Wagner GmbH <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Wagner GmbH <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a ui-sref="Account">Account</a></li>
                         <li class="divider"></li>
