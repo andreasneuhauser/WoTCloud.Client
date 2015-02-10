@@ -8,7 +8,10 @@ wotApp.controller('thingDetailController', ['$scope', '$stateParams', 'ThingServ
     ];
 
     ThingService.getSensors($scope.thingId).then(function(res){
-        $scope.gridData = res.data;
+        var dataSource = new kendo.data.DataSource({
+            data: res.data,
+            group: { field: "group" }});
+        $scope.gridData = dataSource;
     }, function(error){
         console.log('error during getSensors');
     });
