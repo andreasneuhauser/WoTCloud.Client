@@ -1,18 +1,17 @@
-var wotApp = angular.module('wotApp', ['ui.router', 'ngAnimate', 'toaster', 'angular-loading-bar', 'kendo.directives', 'uiGmapgoogle-maps', 'chart.js']);
+var wotApp = angular.module('wotApp', ['ui.router', 'LocalStorageModule', 'ngAnimate', 'toaster', 'angular-loading-bar', 'kendo.directives', 'uiGmapgoogle-maps', 'chart.js']);
 
-wotApp.run(
-    [          '$rootScope', '$state', '$stateParams',
-        function ($rootScope,   $state,   $stateParams) {
-
+wotApp.run(['$rootScope', '$state', '$stateParams', 'authService',
+        function ($rootScope, $state, $stateParams, authService) {
             // It's very handy to add references to $state and $stateParams to the $rootScope
             // so that you can access them from any scope within your applications.For example,
             // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the <li>
             // to active whenever 'contacts.list' or one of its decendents is active.
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
+            authService.fillAuthData();
         }
     ]
-)
+);
 
 wotApp.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
@@ -32,6 +31,11 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'pages/main.html',
             controller: 'mainController'
         })
+        .state('Login', {
+            url: '/Login',
+            templateUrl: 'pages/login.html',
+            controller: 'loginController'
+         })
         .state('Things', {
             url: '/Things',
             templateUrl: 'pages/things.html',
@@ -54,12 +58,9 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
         })
 });
 
-//Add this to have access to a global variable
-/*chatApp.run(function ($rootScope) {
- $rootScope.loggedInUsername = ''; //global variable
- });*/
-
 wotApp.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+
     //Enable cross domain calls
     $httpProvider.defaults.useXDomain = true;
 

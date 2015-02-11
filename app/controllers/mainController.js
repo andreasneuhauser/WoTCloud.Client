@@ -1,3 +1,3 @@
-/**
- * Created by Andreas on 04.02.2015.
- */
+'use strict';
+wotApp.controller('mainController', ['$scope', function ($scope) {
+}]);

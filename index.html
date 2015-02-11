@@ -29,9 +29,10 @@
 
     <!-- JavaScript -->
     <script src="js/jquery-1.11.2.min.js"></script>
-    <script src="js/angular-chart/chart.min.js"></script>
-    <script src="js/moment.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src="js/angular-chart/chart.min.js"></script>
+    <script src="js/angular-local-storage.min.js"></script>
+    <script src="js/moment.js"></script>
     <script src="js/angular-ui-router.min.js"></script>
     <script src="js/loading-bar.min.js"></script>
     <script src="js/angular-animate.min.js" ></script>
@@ -47,62 +48,68 @@
     <!-- Services -->
     <script src="app/services/thingService.js"></script>
     <script src="app/services/sensorService.js"></script>
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/authInterceptorService.js"></script>
 
     <!-- Controllers -->
+    <script src="app/controllers/indexController.js"></script>
     <script src="app/controllers/mainController.js"></script>
     <script src="app/controllers/thingController.js"></script>
     <script src="app/controllers/accountController.js"></script>
     <script src="app/controllers/thingDetailController.js"></script>
     <script src="app/controllers/sensorDetailController.js"></script>
+    <script src="app/controllers/loginController.js"></script>
+    <!--<script src="app/controllers/signupController.js"></script>-->
 </head>
 
 <body ng-app="wotApp">
-
-<!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" ui-sref="Home">WoTCloud</a>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" data-ng-controller="indexController">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="Home">WoTCloud</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a ui-sref="Home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li ui-sref-active="active" data-ng-hide="!authentication.isAuth"><a ui-sref="Things"><span class="glyphicon glyphicon-globe"></span> Things</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" data-ng-hide="!authentication.isAuth">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{authentication.userName}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ui-sref="Account">Account</a></li>
+                            <li class="divider"></li>
+                            <li><a href="" data-ng-click="logOut()">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li data-ng-hide="authentication.isAuth"> <a ui-sref="Login">Login</a></li>
+                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>-->
+                </ul>
+            </div><!--/.nav-collapse -->
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li ui-sref-active="active"><a ui-sref="Home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                <li ui-sref-active="active"><a ui-sref="Things"><span class="glyphicon glyphicon-globe"></span> Things</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Wagner GmbH <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a ui-sref="Account">Account</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
+    </nav>
+
+    <div class="wrapper">
+        <div class="container" ui-view></div>
     </div>
-</nav>
 
-<div class="wrapper">
-    <div class="container" ui-view></div>
-</div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">© 2015 Neuhauser & Penner</p>
+        </div>
+    </footer>
 
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted">© 2015 Neuhauser & Penner</p>
-    </div>
-</footer>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
