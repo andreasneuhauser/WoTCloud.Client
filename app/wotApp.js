@@ -23,7 +23,7 @@ wotApp.config(function(uiGmapGoogleMapApiProvider) {
 
 wotApp.config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/Home');
+    $urlRouterProvider.otherwise('/Login');
 
     $stateProvider
         .state('Home', {

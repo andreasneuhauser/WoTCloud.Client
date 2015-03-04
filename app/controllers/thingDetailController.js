@@ -1,21 +1,38 @@
-wotApp.controller('thingDetailController', ['$scope', '$stateParams', 'ThingService', function($scope, $stateParams, ThingService) {
-
-    $scope.map = { center: { latitude: 40.1451, longitude: -99.6680 }, zoom: 6 };
-    $scope.marker = {
-        id: 0,
-        coords: {
-            latitude: 40.1451,
-            longitude: -99.6680
-        }
-    };
+wotApp.controller('thingDetailController', function($scope, $stateParams, $state, ThingService) {
 
     $scope.thingId = $stateParams.thingId;
+
+    $scope.$on("kendoWidgetCreated", function(event, widget){
+        if (widget === $scope.sensorGrid) {
+            $scope.sensorGrid.element.on('dblclick', function (e) { $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedItem.id }) });
+        }
+    });
 
     $scope.gridColumns = [
         { field: "id", title: "ID" },
         { field: "name", title: "Name" },
         { field: "group", title: "Group" }
     ];
+
+    $scope.viewSensor = function() {
+        $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedItem.id });
+    };
+
+    ThingService.getThing($scope.thingId).then(function(res){
+        $scope.name = res.data.name;
+        $scope.description = res.data.description;
+
+        $scope.map = { center: { latitude: res.data.latitude, longitude: res.data.longitude }, zoom: 6 };
+        $scope.marker = {
+            id: 0,
+            coords: {
+                latitude: res.data.latitude,
+                longitude: res.data.longitude
+            }
+        };
+    }, function(error){
+        console.log('error during getThing');
+    });
 
     ThingService.getSensors($scope.thingId).then(function(res){
         var dataSource = new kendo.data.DataSource({
@@ -25,4 +42,4 @@ wotApp.controller('thingDetailController', ['$scope', '$stateParams', 'ThingServ
     }, function(error){
         console.log('error during getSensors');
     });
-}]);
+});

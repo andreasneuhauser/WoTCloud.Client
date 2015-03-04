@@ -1,12 +1,13 @@
 <ol class="breadcrumb">
     <li><a href="#/Home">Home</a></li>
-    <li><a href="#/Home">Things</a></li>
-    <li><a href="#/Home">{{thingId}}</a></li>
-    <li>Sensors</li>
+    <li><a ui-sref="Things">Things</a></li>
+    <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">{{thingId}}</a></li>
+    <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">Sensors</a></li>
+    <li>{{groupname}}</li>
     <li class="active">{{sensorId}}</a></li>
 </ol>
 <div class="page-header">
-    <h1>Sensor {{sensorId}}</h1>
+    <h1>{{name}}</h1>
     <br/>
     <div class="row">
         <div class="col-md-6">

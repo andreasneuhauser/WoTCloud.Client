@@ -13,7 +13,13 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
         { field: "value", title: "Value" }
     ];
 
-    SensorService.getValues().then(function(res){
+    SensorService.getSensor($scope.thingId, $scope.sensorId).then(function(res){
+        $scope.name = res.data.name;
+    }, function(error){
+        console.log('error during getSensors');
+    });
+
+    SensorService.getSensorValues($scope.thingId, $scope.sensorId).then(function(res){
         var data = res.data;
         $scope.gridData = new kendo.data.DataSource({
             data: data,
@@ -32,6 +38,6 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
         $scope.lastValue = data[0].value;
         $scope.lastUpdated = moment(data[0].ticks).startOf("minutes").fromNow();
     }, function(error){
-        console.log('error during getSensors');
+        console.log('error during getSensorValues');
     });
 }]);

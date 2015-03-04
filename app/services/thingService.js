@@ -7,14 +7,21 @@ wotApp.factory('ThingService', function($http){
         return $http.get(srv._baseUrl + '/api/1/things');
     };
 
-    srv.getSensors = function(thingId){
+    srv.getThing = function(thingId){
         return $http.get(srv._baseUrl + '/api/1/things/' + thingId);
+    };
+
+    srv.getSensors = function(thingId){
+        return $http.get(srv._baseUrl + '/api/1/things/' + thingId + '/sensors');
     };
 
     // Public API
     return {
         getThings: function(){
             return srv.getThings();
+        },
+        getThing: function(thingId){
+            return srv.getThing(thingId);
         },
         getSensors: function(thingId){
             return srv.getSensors(thingId);

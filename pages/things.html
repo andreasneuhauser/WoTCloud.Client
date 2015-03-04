@@ -7,11 +7,15 @@
     <br/>
     <button type="button" class="btn btn-primary btn-sm">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <span>Add Thing</span>
+        <span>Add</span>
+    </button>
+    <button type="button" class="btn btn-primary btn-sm" ng-show="selectedItem" ng-click="viewThing()">
+        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        <span>View</span>
     </button>
     <button type="button" class="btn btn-danger btn-sm" ng-show="selectedItem">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        <span>Delete Thing</span>
+        <span>Delete</span>
     </button>
     <div kendo-grid="thingGrid"
          k-data-source="gridData"
