@@ -5,10 +5,12 @@
 <div class="page-header">
     <h1>Things</h1>
     <br/>
-    <button type="button" class="btn btn-primary btn-sm">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <span>Add</span>
-    </button>
+    <a ui-sref="ThingCreate">
+        <button type="button" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span>Add</span>
+        </button>
+    </a>
     <button type="button" class="btn btn-primary btn-sm" ng-show="selectedItem" ng-click="viewThing()">
         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
         <span>View</span>
@@ -17,9 +19,16 @@
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         <span>Delete</span>
     </button>
+    <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        <span>Refresh</span>
+    </button>
     <div kendo-grid="thingGrid"
          k-data-source="gridData"
          k-columns="gridColumns"
          k-selectable="true"
+         k-sortable="true"
+         k-pageable="true"
+         k-scrollable="false"
          k-on-change="selectedItem = dataItem"></div>
 </div>

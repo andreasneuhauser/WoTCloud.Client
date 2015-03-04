@@ -23,14 +23,16 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
         var data = res.data;
         $scope.gridData = new kendo.data.DataSource({
             data: data,
-            schema:{
-                parse:function (response) {
-                    $.each(response, function (idx, elem) {
-                        if (elem.ticks && typeof elem.ticks === "string") {
-                            elem.ticks = moment(elem.ticks).format("MMM Do YY");
+            schema: {
+                model: {
+                    fields: {
+                        ticks: {
+                            type: "date",
+                            parse: function(value) {
+                                return new Date(value * 1000);
+                            }
                         }
-                    });
-                    return response;
+                    }
                 }
             },
             pageSize: 10

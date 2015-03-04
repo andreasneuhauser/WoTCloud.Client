@@ -9,16 +9,24 @@ wotApp.controller('thingController', function($scope, $state, ThingService) {
     $scope.gridColumns = [
         { field: "id", title: "ID" },
         { field: "name", title: "Name" },
-        { field: "desc", title: "Description" }
+        { field: "description", title: "Description" }
     ];
-
-    $scope.viewThing = function() {
-        $state.go('ThingDetail', { thingId: $scope.selectedItem.id });
-    };
 
     ThingService.getThings().then(function(res){
         $scope.gridData = res.data;
     }, function(error){
         console.log('error during getThings');
     });
+
+    $scope.viewThing = function() {
+        $state.go('ThingDetail', { thingId: $scope.selectedItem.id });
+    };
+
+    $scope.refresh = function() {
+        ThingService.getThings().then(function(res){
+            $scope.gridData = res.data;
+        }, function(error){
+            console.log('error during getThings');
+        });
+    };
 });

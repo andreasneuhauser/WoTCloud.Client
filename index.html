@@ -16,6 +16,8 @@
 
     <link href="css/kendo/kendo.common.min.css" rel="stylesheet" />
     <link href="css/kendo/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="css/kendo/kendo.dataviz.min.css" rel="stylesheet" />
+    <link href="css/kendo/kendo.dataviz.bootstrap.min.css" rel="stylesheet" />
     <link href="css/angular-chart/angular-chart.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
@@ -79,6 +81,7 @@
                 <ul class="nav navbar-nav">
                     <li ui-sref-active="active"><a ui-sref="Home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                     <li ui-sref-active="active" data-ng-hide="!authentication.isAuth"><a ui-sref="Things"><span class="glyphicon glyphicon-globe"></span> Things</a></li>
+                    <li ui-sref-active="active" data-ng-hide="!authentication.isAuth"><a ui-sref="Templates"><span class="glyphicon glyphicon-bookmark"></span> Templates</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown" data-ng-hide="!authentication.isAuth">

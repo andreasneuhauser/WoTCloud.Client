@@ -3,7 +3,6 @@
     <li><a ui-sref="Things">Things</a></li>
     <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">{{thingId}}</a></li>
     <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">Sensors</a></li>
-    <li>{{groupname}}</li>
     <li class="active">{{sensorId}}</a></li>
 </ol>
 <div class="page-header">
@@ -38,6 +37,7 @@
                     <div kendo-grid="valueGrid"
                          k-data-source="gridData"
                          k-pageable="true"
+                         k-scrollable="false"
                          k-columns="gridColumns"></div>
                 </div>
             </div>
