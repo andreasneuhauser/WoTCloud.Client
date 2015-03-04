@@ -36,6 +36,11 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'pages/login.html',
             controller: 'loginController'
          })
+        .state('Register', {
+            url: '/Register',
+            templateUrl: 'pages/register.html',
+            controller: 'registerController'
+        })
         .state('Things', {
             url: '/Things',
             templateUrl: 'pages/things.html',

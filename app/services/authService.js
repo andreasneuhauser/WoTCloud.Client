@@ -10,19 +10,15 @@ wotApp.factory('authService', ['$http', '$q', 'localStorageService', function ($
     };
 
     var _saveRegistration = function (registration) {
-
         _logOut();
 
-        return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
+        return $http.post(serviceBase + 'api/tenants', registration).then(function (response) {
             return response;
         });
-
     };
 
     var _login = function (loginData) {
-
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
-
         var deferred = $q.defer();
 
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
@@ -40,20 +36,16 @@ wotApp.factory('authService', ['$http', '$q', 'localStorageService', function ($
         });
 
         return deferred.promise;
-
     };
 
     var _logOut = function () {
-
         localStorageService.remove('authorizationData');
 
         _authentication.isAuth = false;
         _authentication.userName = "";
-
     };
 
     var _fillAuthData = function () {
-
         var authData = localStorageService.get('authorizationData');
         if (authData)
         {

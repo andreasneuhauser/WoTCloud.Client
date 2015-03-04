@@ -59,7 +59,7 @@
     <script src="app/controllers/thingDetailController.js"></script>
     <script src="app/controllers/sensorDetailController.js"></script>
     <script src="app/controllers/loginController.js"></script>
-    <!--<script src="app/controllers/signupController.js"></script>-->
+    <script src="app/controllers/registerController.js"></script>
 </head>
 
 <body ng-app="wotApp">
@@ -89,8 +89,8 @@
                             <li><a href="" data-ng-click="logOut()">Logout</a></li>
                         </ul>
                     </li>
+                    <li data-ng-hide="authentication.isAuth"> <a ui-sref="Register">Sign Up</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a ui-sref="Login">Login</a></li>
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>-->
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
