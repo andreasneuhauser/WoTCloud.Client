@@ -9,7 +9,7 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
     ];
 
     $scope.gridColumns = [
-        { field: "ticks", title: "Date" },
+        { field: "ticks", title: "Date", format:"{0:dd.MM.yyyy, HH:mm:ss}" },
         { field: "value", title: "Value" }
     ];
 
