@@ -13,48 +13,59 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
         console.log('error during getSensors');
     });
 
-    SensorService.getSensorValues($scope.thingId, $scope.sensorId).then(function(res){
-        var data = res.data;
+    $scope.refresh = function() {
+        SensorService.getSensorValues($scope.thingId, $scope.sensorId).then(function(res){
+            var data = res.data;
 
-        $scope.chartData = new kendo.data.DataSource({
-            data: data,
-            schema: {
-                model: {
-                    fields: {
-                        ticks: {
-                            type: "date",
-                            parse: function(value) {
-                                return new Date(value * 1000);
+            $scope.chartData = new kendo.data.DataSource({
+                data: data,
+                schema: {
+                    model: {
+                        fields: {
+                            ticks: {
+                                type: "date",
+                                parse: function(value) {
+                                    return new Date(value);
+                                }
+                            }
+                        }
+                    }
+                },
+                sort: {
+                    field: "ticks",
+                    dir: "asc"
+                }
+            });
+
+            $scope.gridData = new kendo.data.DataSource({
+                data: data,
+                schema: {
+                    model: {
+                        fields: {
+                            ticks: {
+                                type: "date",
+                                parse: function(value) {
+                                    return new Date(value * 1000);
+                                }
                             }
                         }
                     }
                 }
-            },
-            sort: {
-                field: "ticks",
-                dir: "asc"
-            }
+            });
+            $scope.lastValue = data[0].value;
+            $scope.lastUpdated = moment(new Date(data[0].ticks * 1000)).startOf("minutes").fromNow();
+        }, function(error){
+            console.log('error during getSensorValues');
         });
+    }
 
-        $scope.gridData = new kendo.data.DataSource({
-            data: data,
-            schema: {
-                model: {
-                    fields: {
-                        ticks: {
-                            type: "date",
-                            parse: function(value) {
-                                return new Date(value * 1000);
-                            }
-                        }
-                    }
-                }
-            },
-            pageSize: 10
+    //Initial call
+    $scope.refresh();
+
+    $scope.addNewValue = function() {
+        SensorService.addNewValue($scope.thingId, $scope.sensorId, $scope.txtNewValue).then(function(res){
+            $scope.txtNewValue = "";
+            $scope.refresh();
         });
-        $scope.lastValue = data[0].value;
-        $scope.lastUpdated = moment(new Date(data[0].ticks * 1000)).startOf("minutes").fromNow();
-    }, function(error){
-        console.log('error during getSensorValues');
-    });
+    };
 }]);
