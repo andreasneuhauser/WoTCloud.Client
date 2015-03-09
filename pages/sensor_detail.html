@@ -20,9 +20,9 @@
                     <br />
                     <form class="form-inline">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="New Value">
+                            <input type="text" class="form-control" placeholder="New Value" ng-model="txtNewValue">
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" ng-click="addNewValue()">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             <span>Add Value</span>
                         </button>
@@ -53,9 +53,8 @@
                          k-series-defaults="{ type: 'line', labels: { visible: false } }"
                          k-series="[{ field: 'value' }]"
                          k-categoryAxis="[{ field: 'ticks', majorGridLines: { visible: false} }]"
-                         k-tooltip="{ visible: true, template: '${kendo.toString(dataItem.ticks, &quot;d&quot;)}, Value: ${value}' }"
-                         k-data-source="chartData"
-                            ></div>
+                         k-tooltip="{ visible: true, template: '${kendo.toString(dataItem.ticks,&quot;dd.MM.yyyy HH:mm:ss&quot;)}' }"
+                         k-data-source="chartData"></div>
                 </div>
             </div>
         </div>
