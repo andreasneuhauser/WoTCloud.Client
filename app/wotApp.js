@@ -1,4 +1,4 @@
-var wotApp = angular.module('wotApp', ['ui.router', 'LocalStorageModule', 'ngAnimate', 'toaster', 'angular-loading-bar', 'kendo.directives', 'uiGmapgoogle-maps', 'chart.js']);
+var wotApp = angular.module('wotApp', ['ui.router', 'LocalStorageModule', 'ngAnimate', 'toaster', 'angular-loading-bar', 'kendo.directives', 'uiGmapgoogle-maps', 'chart.js', 'ngMessages']);
 
 wotApp.run(['$rootScope', '$state', '$stateParams', 'authService',
         function ($rootScope, $state, $stateParams, authService) {
@@ -81,7 +81,7 @@ wotApp.config(function ($httpProvider) {
 //Directive for entering chat message
 wotApp.directive('ngEnter', function() {
     return function(scope, element, attrs) {
-        element.bind("keydown keypress", function(event) {
+        element.bind('keydown keypress', function(event) {
             if(event.which === 13) {
                 scope.$apply(function(){
                     scope.$eval(attrs.ngEnter, {'event': event});
@@ -90,5 +90,41 @@ wotApp.directive('ngEnter', function() {
                 event.preventDefault();
             }
         });
+    };
+});
+
+
+wotApp.directive('validateMustEqualTo', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
+            if (_.isUndefined(attrs.formName)) {
+                throw 'For this directive to function correctly you need to supply the form-name attribute';
+            }
+
+            function isEqualToOther(value) {
+                var otherInput = scope[attrs.formName][attrs.validateMustEqualTo];
+                if (_.isUndefined(otherInput)) {
+                    throw 'Cannot retrieve the second field to compare with from the scope';
+                }
+
+                var otherValue = otherInput.$modelValue || otherInput.$viewValue;
+                if (otherInput.$untouched || _.isEmpty(otherValue)) {
+                    return true;
+                }
+
+                var isEqual = (value === otherValue);
+
+                otherInput.$setValidity('notEqualTo', isEqual);
+
+                return isEqual;
+            }
+
+            ngModel.$validators.notEqualTo = function (modelValue, viewValue) {
+                var value = modelValue || viewValue;
+
+                return isEqualToOther(value);
+            };
+        }
     };
 });

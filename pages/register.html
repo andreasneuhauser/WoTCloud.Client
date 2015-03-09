@@ -1,17 +1,34 @@
-<div class="row" style="margin-top:60px;">
-    <div class="col-md-4 col-md-offset-4">
-        <form class="form-login" role="form">
-            <h2 class="form-login-heading">Sign up</h2>
-            <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h5>{{message}}</h5>
-            </div>
+<div class="page-header">
+    <h1>Register</h1>
 
-            <input type="text" class="form-control" placeholder="Company Name" data-ng-model="registration.name" required autofocus>
-            <input type="text" class="form-control" placeholder="Username" data-ng-model="registration.username" required autofocus>
-            <input type="password" class="form-control" placeholder="Password" data-ng-model="registration.password" required>
-            <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="registration.confirmpassword" required>
-            <button class="btn btn-lg btn-success btn-block" type="submit" data-ng-click="signUp()">Submit</button>
-        </form>
-    </div>
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+    <form name="rForm" ng-submit="submitForm(rForm.$valid)" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : accountForm.companyname.$invalid && !accountForm.companyname.$pristine }">
+            <label for="companyName">Company Name</label>
+            <input type="text" class="form-control" id="companyName" ng-model="registration.name" placeholder="Enter Company name" required autofocus>
+            <p ng-show="accountForm.companyname.$invalid && !accountForm.companyname.$pristine" class="help-block">Companyname is required.</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" ng-model="registration.username">
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : rForm.password.$invalid && !rForm.password.$pristine }">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" placeholder="Password" id="password" name="password" data-ng-model="registration.password" required validate-must-equal-to="confirmpassword" form-name="rForm">
+            <div ng-messages="rForm.password.$error" ng-if="rForm.password.$touched && rForm.password.$invalid && !rForm.password.$error.notEqualTo" class="alert alert-danger">
+                <div ng-message="required">This field is required</div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : rForm.confirmpassword.$invalid && !rForm.confirmpassword.$pristine }">
+            <label for="confirmpassword">Confirm Password</label>
+            <input type="password" class="form-control" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword"  data-ng-model="registration.confirmpassword" required validate-must-equal-to="password" form-name="rForm">
+            <div ng-messages="rForm.confirmpassword.$error" ng-if="rForm.confirmpassword.$touched && rForm.confirmpassword.$invalid" class="alert alert-danger">
+                <div ng-message="required">This field is required</div>
+                <div ng-message="notEqualTo">Your passwords do not match</div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default" ng-disabled="rForm.$invalid" data-ng-click="signUp()">
+            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Submit
+        </button>
+    </form>
 </div>
