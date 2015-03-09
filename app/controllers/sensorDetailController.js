@@ -2,12 +2,6 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
     $scope.thingId = $stateParams.thingId;
     $scope.sensorId = $stateParams.sensorId;
 
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    $scope.series = ['Series A'];
-    $scope.data = [
-        [28, 48, 40, 19, 86, 27, 90]
-    ];
-
     $scope.gridColumns = [
         { field: "ticks", title: "Date", format:"{0:dd.MM.yyyy, HH:mm:ss}" },
         { field: "value", title: "Value" }
@@ -21,6 +15,27 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
 
     SensorService.getSensorValues($scope.thingId, $scope.sensorId).then(function(res){
         var data = res.data;
+
+        $scope.chartData = new kendo.data.DataSource({
+            data: data,
+            schema: {
+                model: {
+                    fields: {
+                        ticks: {
+                            type: "date",
+                            parse: function(value) {
+                                return new Date(value * 1000);
+                            }
+                        }
+                    }
+                }
+            },
+            sort: {
+                field: "ticks",
+                dir: "asc"
+            }
+        });
+
         $scope.gridData = new kendo.data.DataSource({
             data: data,
             schema: {
@@ -38,7 +53,7 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
             pageSize: 10
         });
         $scope.lastValue = data[0].value;
-        $scope.lastUpdated = moment(data[0].ticks).startOf("minutes").fromNow();
+        $scope.lastUpdated = moment(new Date(data[0].ticks * 1000)).startOf("minutes").fromNow();
     }, function(error){
         console.log('error during getSensorValues');
     });
