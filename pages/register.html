@@ -3,27 +3,34 @@
 
     <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
     <form name="rForm" ng-submit="submitForm(rForm.$valid)" novalidate>
-        <div class="form-group" ng-class="{ 'has-error' : accountForm.companyname.$invalid && !accountForm.companyname.$pristine }">
-            <label for="companyName">Company Name</label>
-            <input type="text" class="form-control" id="companyName" ng-model="registration.name" placeholder="Enter Company name" required autofocus>
-            <p ng-show="accountForm.companyname.$invalid && !accountForm.companyname.$pristine" class="help-block">Companyname is required.</p>
+        <div class="form-group" ng-class="{ 'has-error' : rForm.companyname.$invalid && !rForm.companyname.$pristine }">
+            <label for="companyname">Company Name</label>
+            <input type="text" class="form-control" id="companyname" name="companyname" ng-model="registration.name" placeholder="Enter Company name" required autofocus form-name="rForm">
+            <div ng-messages="rForm.companyname.$error" ng-if="rForm.companyname.$touched && rForm.companyname.$invalid" class="alert alert-danger">
+                <div ng-message="required">This field is required</div>
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : rForm.username.$invalid && !rForm.username.$pristine }">
             <label class="control-label" for="username">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="Username" ng-model="registration.username">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" ng-model="registration.username" required form-name="rForm">
+            <div ng-messages="rForm.username.$error" ng-if="rForm.username.$touched && rForm.username.$invalid" class="alert alert-danger">
+                <div ng-message="required">This field is required</div>
+            </div>
         </div>
         <div class="form-group" ng-class="{ 'has-error' : rForm.password.$invalid && !rForm.password.$pristine }">
             <label for="password">Password</label>
-            <input type="password" class="form-control" placeholder="Password" id="password" name="password" data-ng-model="registration.password" required validate-must-equal-to="confirmpassword" form-name="rForm">
+            <input type="password" class="form-control" placeholder="Password" id="password" name="password" data-ng-model="registration.password" required ng-minlength="4" validate-must-equal-to="confirmpassword" form-name="rForm">
             <div ng-messages="rForm.password.$error" ng-if="rForm.password.$touched && rForm.password.$invalid && !rForm.password.$error.notEqualTo" class="alert alert-danger">
                 <div ng-message="required">This field is required</div>
+                <div ng-message="minlength">This field has a minimum length of 4 characters.</div>
             </div>
         </div>
         <div class="form-group" ng-class="{ 'has-error' : rForm.confirmpassword.$invalid && !rForm.confirmpassword.$pristine }">
             <label for="confirmpassword">Confirm Password</label>
-            <input type="password" class="form-control" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword"  data-ng-model="registration.confirmpassword" required validate-must-equal-to="password" form-name="rForm">
+            <input type="password" class="form-control" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword"  data-ng-model="registration.confirmpassword" required ng-minlength="4" validate-must-equal-to="password" form-name="rForm">
             <div ng-messages="rForm.confirmpassword.$error" ng-if="rForm.confirmpassword.$touched && rForm.confirmpassword.$invalid" class="alert alert-danger">
                 <div ng-message="required">This field is required</div>
+                <div ng-message="minlength">This field has a minimum length of 4 characters.</div>
                 <div ng-message="notEqualTo">Your passwords do not match</div>
             </div>
         </div>
