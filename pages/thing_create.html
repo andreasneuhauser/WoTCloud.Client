@@ -7,7 +7,7 @@
     <h1 ng-show="!$stateParams.thingId">Create {{thingName}}</h1>
     <h1 ng-show="$stateParams.thingId">Edit Thing</h1>
     <br />
-    <form name="thingForm">
+    <form name="thingForm" novalidate>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
@@ -15,36 +15,32 @@
                     <h3 class="panel-title">Details</h3>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal">
-                        <fieldset>
-                            <div class="form-group">
-                                <label for="inputName" class="col-lg-2 control-label">Name</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputName" ng-model="thingName" required/>
-                                    <span class="help-block">{{100 - thingName.length}} remaining characters</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="textArea" class="col-lg-2 control-label">Description</label>
-                                <div class="col-lg-10">
-                                    <textarea class="form-control" rows="3" id="textArea" ng-model="thingDescription"></textarea>
-                                    <span class="help-block">{{1000 - thingDescription.length}} remaining characters</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputLongitude" class="col-lg-2 control-label">Longitude</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputLongitude" ng-model="thingLongitude"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputLatitude" class="col-lg-2 control-label">Latitude</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputLatitude" ng-model="thingLatitude"/>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
+                    <div class="form-group">
+                        <label for="inputName" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputName" ng-model="thingName" required/>
+                            <span class="help-block">{{100 - thingName.length}} remaining characters</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="textArea" class="col-lg-2 control-label">Description</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="3" id="textArea" ng-model="thingDescription"></textarea>
+                            <span class="help-block">{{1000 - thingDescription.length}} remaining characters</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLongitude" class="col-lg-2 control-label">Longitude</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputLongitude" ng-model="thingLongitude"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLatitude" class="col-lg-2 control-label">Latitude</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputLatitude" ng-model="thingLatitude"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,10 +59,9 @@
                             <input type="text" class="form-control" ng-model="prop.description" placeholder="Description" ng-show="!prop.isMainThing">
                             <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)" ng-show="!prop.isMainThing"><span class="glyphicon glyphicon-trash"></span> </button>
                         </div>
-                        <div class="form-group form-inline" ng-repeat="sensor in prop.sensors">
+                        <div class="form-group form-inline" ng-repeat="sensor in prop.sensors" style="margin-left: 20px">
                             <input type="text" class="form-control input-sm" ng-model="sensor.name" placeholder="Sensor name" required>
                             <select class="form-control input-sm" ng-model="sensor.datatype" ng-options="item.id as item.name for item in datatypes">
-                                <option>test</option>
                             </select>
                             <button class="btn btn-danger btn-sm" ng-click="removeSensor(prop, sensor)"><span class="glyphicon glyphicon-trash"></span> </button>
                         </div>
@@ -85,7 +80,7 @@
     <div class="row">
         <div class="pull-right">
             <a ui-sref="Things"><button type="reset" class="btn btn-default">Cancel</button></a>
-            <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="thingForm.user.$dirty && myForm.user.$invalid || myForm.email.$dirty && myForm.email.$invalid">
+            <button type="submit" class="btn btn-primary" ng-click="submit()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span>Create Thing</span>
             </button>
