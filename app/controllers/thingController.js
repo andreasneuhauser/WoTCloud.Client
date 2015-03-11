@@ -22,6 +22,10 @@ wotApp.controller('thingController', function($scope, $state, ThingService) {
         $state.go('ThingDetail', { thingId: $scope.selectedItem.id });
     };
 
+    $scope.editThing = function() {
+        $state.go('ThingEdit', { thingId: $scope.selectedItem.id });
+    };
+
     $scope.refresh = function() {
         ThingService.getThings().then(function(res){
             $scope.gridData = res.data;

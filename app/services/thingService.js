@@ -15,6 +15,15 @@ wotApp.factory('ThingService', function($http){
         return $http.get(srv._baseUrl + '/api/1/things/' + thingId + '/sensors');
     };
 
+    srv.createThing = function(value){
+        return $http({
+            url: srv._baseUrl + '/api/1/things',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            data: value
+        });
+    };
+
     // Public API
     return {
         getThings: function(){
@@ -25,6 +34,9 @@ wotApp.factory('ThingService', function($http){
         },
         getSensors: function(thingId){
             return srv.getSensors(thingId);
+        },
+        createThing: function(data){
+            return srv.createThing(data);
         }
     };
 });
