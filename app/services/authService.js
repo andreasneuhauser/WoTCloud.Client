@@ -1,7 +1,7 @@
 'use strict';
 wotApp.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
 
-    var serviceBase = 'http://wotcloud.azurewebsites.net/';
+    var serviceBase = 'https://wotcloud.azurewebsites.net/';
     var authServiceFactory = {};
 
     var _authentication = {
