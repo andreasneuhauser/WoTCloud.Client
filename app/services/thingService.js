@@ -11,6 +11,10 @@ wotApp.factory('ThingService', function($http){
         return $http.get(srv._baseUrl + '/api/1/things/' + thingId);
     };
 
+    srv.getThingDetails = function(thingId){
+        return $http.get(srv._baseUrl + '/api/1/things/' + thingId);
+    };
+
     srv.getSensors = function(thingId){
         return $http.get(srv._baseUrl + '/api/1/things/' + thingId + '/sensors');
     };
@@ -31,6 +35,9 @@ wotApp.factory('ThingService', function($http){
         },
         getThing: function(thingId){
             return srv.getThing(thingId);
+        },
+        getThingDetails: function(thingId){
+            return srv.getThingDetails(thingId);
         },
         getSensors: function(thingId){
             return srv.getSensors(thingId);

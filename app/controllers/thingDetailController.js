@@ -43,6 +43,11 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
         $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedItem.id });
     };
 
+    $scope.deleteSensor = function() {
+        //$scope.selectedItem.id
+        $scope.refresh();
+    };
+
     $scope.refresh = function() {
         ThingService.getSensors($scope.thingId).then(function(res){
             var dataSource = new kendo.data.DataSource({

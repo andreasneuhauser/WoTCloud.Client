@@ -4,8 +4,7 @@
     <li class="active">Create</a></li>
 </ol>
 <div class="page-header">
-    <h1 ng-show="!$stateParams.thingId">Create {{thingName}}</h1>
-    <h1 ng-show="$stateParams.thingId">Edit Thing</h1>
+    <h1>Create {{thingName}}</h1>
     <br />
     <form name="thingForm" novalidate>
     <div class="row">
@@ -54,10 +53,10 @@
                 <div class="panel-body">
                     <div class="well" ng-repeat="prop in properties">
                         <div class="form-group form-inline">
-                            <h4 ng-show="prop.isMainThing">General</h4>
-                            <input type="text" class="form-control" ng-model="prop.name" placeholder="Name" ng-show="!prop.isMainThing" required>
-                            <input type="text" class="form-control" ng-model="prop.description" placeholder="Description" ng-show="!prop.isMainThing">
-                            <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)" ng-show="!prop.isMainThing"><span class="glyphicon glyphicon-trash"></span> </button>
+                            <h4 ng-show="prop.ismainthing">General</h4>
+                            <input type="text" class="form-control" ng-model="prop.name" placeholder="Name" ng-show="!prop.ismainthing" required>
+                            <input type="text" class="form-control" ng-model="prop.description" placeholder="Description" ng-show="!prop.ismainthing">
+                            <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)" ng-show="!prop.ismainthing"><span class="glyphicon glyphicon-trash"></span> </button>
                         </div>
                         <div class="form-group form-inline" ng-repeat="sensor in prop.sensors" style="margin-left: 20px">
                             <input type="text" class="form-control input-sm" ng-model="sensor[0].name" placeholder="Sensor name" required>

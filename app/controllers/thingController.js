@@ -1,5 +1,4 @@
 wotApp.controller('thingController', function($scope, $state, ThingService) {
-
     $scope.$on("kendoWidgetCreated", function(event, widget){
         if (widget === $scope.thingGrid) {
             $scope.thingGrid.element.on('dblclick', function (e) { $state.go('ThingDetail', { thingId: $scope.selectedItem.id }) });
@@ -24,6 +23,11 @@ wotApp.controller('thingController', function($scope, $state, ThingService) {
 
     $scope.editThing = function() {
         $state.go('ThingEdit', { thingId: $scope.selectedItem.id });
+    };
+
+    $scope.deleteThing = function() {
+        //$scope.selectedItem.id
+        $scope.refresh();
     };
 
     $scope.refresh = function() {

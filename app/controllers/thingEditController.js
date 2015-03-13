@@ -1,6 +1,21 @@
-wotApp.controller('thingCreateController', function($scope, $stateParams, $state, ThingService) {
+wotApp.controller('thingEditController', function($scope, $stateParams, $state, ThingService) {
     $scope.datatypes = [{id: 1, name: "bool"}, {id: 2, name: "int"}, {id: 3, name: "decimal"}, {id: 4, name: "string"} ];
-    $scope.properties = [{id: 0, name: 'General', description: 'test', ismainthing: true, sensors: []}];
+
+    //Edit
+    if($stateParams.thingId){
+        ThingService.getThingDetails($stateParams.thingId).then(function(res){
+
+            $scope.thingName = res.data.name;
+            $scope.thingDescription = res.data.description;
+            $scope.thingLongitude = res.data.longitude;
+            $scope.thingLatitude = res.data.latitude;
+
+            $scope.properties = angular.copy(res.data.children);
+
+        }, function(error){
+            console.log('error during getThing');
+        });
+    }
 
     $scope.removeProperty = function(property) {
         alert(property.id + ' ' + property.description);
@@ -35,6 +50,6 @@ wotApp.controller('thingCreateController', function($scope, $stateParams, $state
 
         console.log(JSON.stringify($scope.properties));
 
-        ThingService.createThing(thing);
+        //ThingService.createThing(thing);
     };
 });

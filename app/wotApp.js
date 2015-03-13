@@ -53,8 +53,8 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('ThingEdit', {
             url: '/Thing/Edit/:thingId',
-            templateUrl: 'pages/thing_create.html',
-            controller: 'thingCreateController'
+            templateUrl: 'pages/thing_edit.html',
+            controller: 'thingEditController'
         })
         .state('ThingDetail', {
             url: "/Things/:thingId",
@@ -98,7 +98,6 @@ wotApp.directive('ngEnter', function() {
         });
     };
 });
-
 
 wotApp.directive('validateMustEqualTo', function () {
     return {
