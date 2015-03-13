@@ -4,7 +4,7 @@
     <li class="active">Create</a></li>
 </ol>
 <div class="page-header">
-    <h1>Create {{thingName}}</h1>
+    <h1>Create Thing</h1>
     <br />
     <form name="thingForm" novalidate>
     <div class="row">
@@ -59,8 +59,8 @@
                             <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)" ng-show="!prop.ismainthing"><span class="glyphicon glyphicon-trash"></span> </button>
                         </div>
                         <div class="form-group form-inline" ng-repeat="sensor in prop.sensors" style="margin-left: 20px">
-                            <input type="text" class="form-control input-sm" ng-model="sensor[0].name" placeholder="Sensor name" required>
-                            <select class="form-control input-sm" ng-model="sensor[0].datatype" ng-options="item.id as item.name for item in datatypes">
+                            <input type="text" class="form-control input-sm" ng-model="sensor.name" placeholder="Sensor name" required>
+                            <select class="form-control input-sm" ng-model="sensor.datatype" ng-options="item.id as item.name for item in datatypes">
                             </select>
                             <button class="btn btn-danger btn-sm" ng-click="removeSensor(prop, sensor)"><span class="glyphicon glyphicon-trash"></span> </button>
                         </div>

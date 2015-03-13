@@ -12,7 +12,7 @@ wotApp.factory('ThingService', function($http){
     };
 
     srv.getThingDetails = function(thingId){
-        return $http.get(srv._baseUrl + '/api/1/things/' + thingId);
+        return $http.get(srv._baseUrl + '/api/1/things/' + thingId + '/details');
     };
 
     srv.getSensors = function(thingId){
@@ -23,6 +23,24 @@ wotApp.factory('ThingService', function($http){
         return $http({
             url: srv._baseUrl + '/api/1/things',
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            data: value
+        });
+    };
+
+    srv.editThing = function(thingId, value){
+        return $http({
+            url: srv._baseUrl + '/api/1/things/' + thingId,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            data: value
+        });
+    };
+
+    srv.deleteThing = function(value){
+        return $http({
+            url: srv._baseUrl + '/api/1/things',
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             data: value
         });
@@ -44,6 +62,12 @@ wotApp.factory('ThingService', function($http){
         },
         createThing: function(data){
             return srv.createThing(data);
+        },
+        editThing: function(thingId, data){
+            return srv.editThing(thingId, data);
+        },
+        deleteThing: function(data){
+            return srv.deleteThing(data);
         }
     };
 });

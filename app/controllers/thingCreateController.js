@@ -1,26 +1,44 @@
 wotApp.controller('thingCreateController', function($scope, $stateParams, $state, ThingService) {
     $scope.datatypes = [{id: 1, name: "bool"}, {id: 2, name: "int"}, {id: 3, name: "decimal"}, {id: 4, name: "string"} ];
-    $scope.properties = [{id: 0, name: 'General', description: 'test', ismainthing: true, sensors: []}];
-
-    $scope.removeProperty = function(property) {
-        alert(property.id + ' ' + property.description);
-    };
+    $scope.properties = [{id: 0, name: 'General', ismainthing: true, sensors: []}];
 
     $scope.addNewProperty = function() {
-        var newItemNo = $scope.properties.length;
-        $scope.properties.push({"id": newItemNo, "sensors":[] });
+        var max = 0;
+        for (var i = 1; i < $scope.properties.length; i++) {
+            if ($scope.properties[i].id > max) {
+                max = $scope.properties[i].id;
+            }
+        }
+
+        $scope.properties.push({"id": max + 1, "changed": true,"sensors":[] });
     };
 
     $scope.addNewSensor = function(property) {
-        $scope.properties[property.id].sensors.push([{"name": "", "datatype": ""}]);
+        var index = $scope.properties.map(function(el) {
+            return el.id;
+        }).indexOf(property.id);
+
+        $scope.properties[index].sensors.push({"name": "", "datatype": 4, "changed": true});
     };
 
     $scope.removeThing = function(property) {
-        $scope.properties.splice(property.id, 1);
+        var index = $scope.properties.map(function(el) {
+            return el.id;
+        }).indexOf(property.id);
+
+        $scope.properties.splice(index, 1);
     };
 
     $scope.removeSensor = function(property, sensor) {
-        $scope.properties[property.id].sensors.splice(sensor.id, 1);
+        var indexProp = $scope.properties.map(function(el) {
+            return el.id;
+        }).indexOf(property.id);
+
+        var indexSens = $scope.properties[indexProp].sensors.map(function(el) {
+            return el.name;
+        }).indexOf(sensor.name);
+
+        $scope.properties[indexProp].sensors.splice(indexSens, 1);
     };
 
     $scope.submit = function() {
@@ -33,8 +51,11 @@ wotApp.controller('thingCreateController', function($scope, $stateParams, $state
             "children": $scope.properties
         };
 
-        console.log(JSON.stringify($scope.properties));
-
-        ThingService.createThing(thing);
+        ThingService.createThing(thing).then(function(res){
+            $state.go('Things');
+        }, function(error){
+            alert(error);
+            console.log('error during createThing');
+        });
     };
 });

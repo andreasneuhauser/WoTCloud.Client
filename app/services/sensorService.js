@@ -20,6 +20,15 @@ wotApp.factory('SensorService', function($http){
         });
     };
 
+    srv.deleteSensor = function(thingId, sensorId, value){
+        return $http({
+            url: srv._baseUrl + '/api/1/things/' + thingId + '/sensors/' + sensorId,
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            data: value
+        });
+    };
+
     // Public API
     return {
         getSensor: function(thingId, sensorId){
@@ -30,6 +39,9 @@ wotApp.factory('SensorService', function($http){
         },
         addNewValue : function(thingId, sensorId, value){
             return srv.addNewValue(thingId, sensorId, value);
+        },
+        deleteSensor : function(thingId, sensorId, value){
+            return srv.deleteSensor(thingId, sensorId, value);
         }
     };
 });

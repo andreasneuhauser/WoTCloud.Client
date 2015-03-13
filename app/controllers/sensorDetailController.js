@@ -50,7 +50,8 @@ wotApp.controller('sensorDetailController', ['$scope', '$stateParams', 'SensorSe
                             }
                         }
                     }
-                }
+                },
+                pageSize: 10
             });
             $scope.lastValue = data[0].value;
             $scope.lastUpdated = moment(new Date(data[0].ticks * 1000)).startOf("minutes").fromNow();

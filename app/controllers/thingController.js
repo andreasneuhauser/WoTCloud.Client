@@ -12,7 +12,9 @@ wotApp.controller('thingController', function($scope, $state, ThingService) {
     ];
 
     ThingService.getThings().then(function(res){
-        $scope.gridData = res.data;
+        $scope.gridData = new kendo.data.DataSource({
+            data: res.data,
+            pageSize: 15});
     }, function(error){
         console.log('error during getThings');
     });

@@ -33,7 +33,9 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
     ThingService.getSensors($scope.thingId).then(function(res){
         var dataSource = new kendo.data.DataSource({
             data: res.data,
-            group: { field: "group" }});
+            group: { field: "group" },
+            pageSize: 10
+        });
         $scope.gridData = dataSource;
     }, function(error){
         console.log('error during getSensors');
