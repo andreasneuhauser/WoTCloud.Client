@@ -24,6 +24,7 @@ wotApp.factory('authService', ['$http', '$q', 'localStorageService', function ($
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
             localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
+            localStorageService.set('tenant_id', response.tenant);
 
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
@@ -40,6 +41,7 @@ wotApp.factory('authService', ['$http', '$q', 'localStorageService', function ($
 
     var _logOut = function () {
         localStorageService.remove('authorizationData');
+        localStorageService.remove('tenant_id');
 
         _authentication.isAuth = false;
         _authentication.userName = "";

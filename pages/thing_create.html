@@ -5,85 +5,108 @@
 </ol>
 <div class="page-header">
     <h1>Create Thing</h1>
-    <br />
+    <br/>
+
     <form name="thingForm" novalidate>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Details</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="inputName" class="col-lg-2 control-label">Name</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputName" ng-model="thingName" required/>
-                            <span class="help-block">{{100 - thingName.length}} remaining characters</span>
-                        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Details</h3>
                     </div>
-                    <div class="form-group">
-                        <label for="textArea" class="col-lg-2 control-label">Description</label>
-                        <div class="col-lg-10">
-                            <textarea class="form-control" rows="3" id="textArea" ng-model="thingDescription"></textarea>
-                            <span class="help-block">{{1000 - thingDescription.length}} remaining characters</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputLongitude" class="col-lg-2 control-label">Longitude</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputLongitude" ng-model="thingLongitude"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputLatitude" class="col-lg-2 control-label">Latitude</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputLatitude" ng-model="thingLatitude"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Things</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="well" ng-repeat="prop in properties">
-                        <div class="form-group form-inline">
-                            <h4 ng-show="prop.ismainthing">General</h4>
-                            <input type="text" class="form-control" ng-model="prop.name" placeholder="Name" ng-show="!prop.ismainthing" required>
-                            <input type="text" class="form-control" ng-model="prop.description" placeholder="Description" ng-show="!prop.ismainthing">
-                            <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)" ng-show="!prop.ismainthing"><span class="glyphicon glyphicon-trash"></span> </button>
-                        </div>
-                        <div class="form-group form-inline" ng-repeat="sensor in prop.sensors" style="margin-left: 20px">
-                            <input type="text" class="form-control input-sm" ng-model="sensor.name" placeholder="Sensor name" required>
-                            <select class="form-control input-sm" ng-model="sensor.datatype" ng-options="item.id as item.name for item in datatypes">
-                            </select>
-                            <button class="btn btn-danger btn-sm" ng-click="removeSensor(prop, sensor)"><span class="glyphicon glyphicon-trash"></span> </button>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{ 'has-error' : thingForm.thingName.$invalid && !thingForm.thingName.$pristine }">
+                            <label class="col-lg-2 control-label">Name</label>
+
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" name="thingName" ng-model="thingName" required/>
+                                <p ng-show="thingForm.thingName.$invalid && !thingForm.thingName.$pristine" class="help-block">Enter a name.</p>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-sm" ng-click="addNewSensor(prop)"><span class="glyphicon glyphicon-plus"></span> <span>Add Sensor</span></button>
-                        </div>
-                    </div>
+                            <label for="textArea" class="col-lg-2 control-label">Description</label>
 
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-sm btn-block" ng-click="addNewProperty()"><span class="glyphicon glyphicon-plus"></span> <span>Add Thing</span></button>
+                            <div class="col-lg-10">
+                                <textarea class="form-control" rows="3" id="textArea"
+                                          ng-model="thingDescription"></textarea>
+                                <span class="help-block">{{1000 - thingDescription.length}} remaining characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLongitude" class="col-lg-2 control-label">Longitude</label>
+
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="inputLongitude" ng-model="thingLongitude"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLatitude" class="col-lg-2 control-label">Latitude</label>
+
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="inputLatitude" ng-model="thingLatitude"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="pull-right">
-            <a ui-sref="Things"><button type="reset" class="btn btn-default">Cancel</button></a>
-            <button type="submit" class="btn btn-primary" ng-click="submit()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <span>Create Thing</span>
-            </button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Things</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well" ng-repeat="prop in properties">
+                            <ng-form name="propForm">
+                                <div class="form-group form-inline" ng-class="{ 'has-error' : propForm.propName.$invalid && !propForm.propName.$pristine }">
+
+                                    <h4 ng-show="prop.ismainthing">General</h4>
+                                    <h4 ng-show="!prop.ismainthing">SubThing - {{prop.name}}</h4>
+                                    <input type="text" class="form-control" name="propName" ng-model="prop.name" placeholder="Name"
+                                           ng-show="!prop.ismainthing" required>
+                                    <input type="text" class="form-control" ng-model="prop.description"
+                                           placeholder="Description" ng-show="!prop.ismainthing">
+                                    <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)"
+                                            ng-show="!prop.ismainthing"><span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                            </ng-form>
+                            <div class="form-group form-inline" ng-repeat="sensor in prop.sensors">
+                                <ng-form name="sensorForm" style="margin-left: 20px" ng-class="{ 'has-error' : sensorForm.sensorName.$invalid && !sensorForm.sensorName.$pristine }">
+                                    <input type="text" class="form-control input-sm" name="sensorName" ng-model="sensor.name"
+                                           placeholder="Sensor name" required>
+                                    <select class="form-control input-sm" ng-model="sensor.datatype"
+                                            ng-options="item.id as item.name for item in datatypes">
+                                    </select>
+                                    <button class="btn btn-danger btn-sm" ng-click="removeSensor(prop, sensor)"><span
+                                            class="glyphicon glyphicon-trash"></span></button>
+                                </ng-form>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-sm" ng-click="addNewSensor(prop)"><span
+                                        class="glyphicon glyphicon-plus"></span> <span>Add Sensor</span></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-sm btn-block" ng-click="addNewProperty()"><span
+                                    class="glyphicon glyphicon-plus"></span> <span>Add Thing</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="pull-right">
+                <a ui-sref="Things">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                </a>
+                <button type="submit" class="btn btn-primary" ng-disabled="thingForm.$invalid">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span>Create Thing</span>
+                </button>
+            </div>
+        </div>
     </form>
 </div>

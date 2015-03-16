@@ -1,4 +1,4 @@
-wotApp.controller('thingDetailController', function($scope, $stateParams, $state, ThingService) {
+wotApp.controller('thingDetailController', function($scope, $stateParams, $state, ThingService, SensorService) {
 
     $scope.thingId = $stateParams.thingId;
 
@@ -41,13 +41,20 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
         console.log('error during getSensors');
     });
 
+    $scope.addSensor = function() {
+        $state.go('ThingEdit', { thingId: $scope.thingId });
+    };
+
     $scope.viewSensor = function() {
         $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedItem.id });
     };
 
     $scope.deleteSensor = function() {
-        //$scope.selectedItem.id
-        $scope.refresh();
+        SensorService.deleteSensor($scope.thingId, $scope.selectedItem.id).then(function(res){
+            $scope.refresh();
+        }, function(error){
+            console.log('error during getThings');
+        });
     };
 
     $scope.refresh = function() {

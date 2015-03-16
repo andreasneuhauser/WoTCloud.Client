@@ -28,8 +28,11 @@ wotApp.controller('thingController', function($scope, $state, ThingService) {
     };
 
     $scope.deleteThing = function() {
-        //$scope.selectedItem.id
-        $scope.refresh();
+        ThingService.deleteThing($scope.selectedItem.id).then(function(res){
+            $scope.refresh();
+        }, function(error){
+            console.log('error during getThings');
+        });
     };
 
     $scope.refresh = function() {
