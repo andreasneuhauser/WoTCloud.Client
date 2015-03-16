@@ -15,12 +15,15 @@
                         <h3 class="panel-title">Details</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group" ng-class="{ 'has-error' : thingForm.thingName.$invalid && !thingForm.thingName.$pristine }">
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : thingForm.thingName.$invalid && !thingForm.thingName.$pristine }">
                             <label class="col-lg-2 control-label">Name</label>
 
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" name="thingName" ng-model="thingName" required/>
-                                <p ng-show="thingForm.thingName.$invalid && !thingForm.thingName.$pristine" class="help-block">Enter a name.</p>
+
+                                <p ng-show="thingForm.thingName.$invalid && !thingForm.thingName.$pristine"
+                                   class="help-block">Enter a name.</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -59,11 +62,12 @@
                     <div class="panel-body">
                         <div class="well" ng-repeat="prop in properties">
                             <ng-form name="propForm">
-                                <div class="form-group form-inline" ng-class="{ 'has-error' : propForm.propName.$invalid && !propForm.propName.$pristine }">
-
+                                <div class="form-group form-inline"
+                                     ng-class="{ 'has-error' : propForm.propName.$invalid && !propForm.propName.$pristine }">
                                     <h4 ng-show="prop.ismainthing">General</h4>
-                                    <h4 ng-show="!prop.ismainthing">SubThing - {{prop.name}}</h4>
-                                    <input type="text" class="form-control" name="propName" ng-model="prop.name" placeholder="Name"
+                                    <h4 ng-show="!prop.ismainthing">Subordinate</h4>
+                                    <input type="text" class="form-control" name="propName" ng-model="prop.name"
+                                           placeholder="Name"
                                            ng-show="!prop.ismainthing" required>
                                     <input type="text" class="form-control" ng-model="prop.description"
                                            placeholder="Description" ng-show="!prop.ismainthing">
@@ -73,8 +77,11 @@
                                 </div>
                             </ng-form>
                             <div class="form-group form-inline" ng-repeat="sensor in prop.sensors">
-                                <ng-form name="sensorForm" style="margin-left: 20px" ng-class="{ 'has-error' : sensorForm.sensorName.$invalid && !sensorForm.sensorName.$pristine }">
-                                    <input type="text" class="form-control input-sm" name="sensorName" ng-model="sensor.name"
+                                <h5 style="margin-left: 20px">Sensor</h5>
+                                <ng-form name="sensorForm" style="margin-left: 20px"
+                                         ng-class="{ 'has-error' : sensorForm.sensorName.$invalid && !sensorForm.sensorName.$pristine }">
+                                    <input type="text" class="form-control input-sm" name="sensorName"
+                                           ng-model="sensor.name"
                                            placeholder="Sensor name" required>
                                     <select class="form-control input-sm" ng-model="sensor.datatype"
                                             ng-options="item.id as item.name for item in datatypes">
@@ -102,7 +109,7 @@
                 <a ui-sref="Things">
                     <button type="reset" class="btn btn-default">Cancel</button>
                 </a>
-                <button type="submit" class="btn btn-primary" ng-disabled="thingForm.$invalid">
+                <button type="submit" class="btn btn-primary" ng-disabled="thingForm.$invalid" ng-click="submit()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <span>Create Thing</span>
                 </button>
