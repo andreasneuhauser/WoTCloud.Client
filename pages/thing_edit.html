@@ -58,25 +58,32 @@
                     </div>
                     <div class="panel-body">
                         <div class="well" ng-repeat="prop in properties">
-                            <div class="form-group form-inline">
-                                <h4 ng-show="prop.ismainthing">General</h4>
-                                <input type="text" class="form-control" ng-model="prop.name" placeholder="Name"
-                                       ng-show="!prop.ismainthing" required>
-                                <input type="text" class="form-control" ng-model="prop.description"
-                                       placeholder="Description" ng-show="!prop.ismainthing">
-                                <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)"
-                                        ng-show="!prop.ismainthing"><span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </div>
-                            <div class="form-group form-inline" ng-repeat="sensor in prop.sensors"
-                                 style="margin-left: 20px">
-                                <input type="text" class="form-control input-sm" ng-model="sensor.name"
-                                       placeholder="Sensor name" required>
-                                <select class="form-control input-sm" ng-model="sensor.datatype"
-                                        ng-options="item.id as item.name for item in datatypes">
-                                </select>
-                                <button class="btn btn-danger btn-sm" ng-click="removeSensor(prop, sensor)"><span
-                                        class="glyphicon glyphicon-trash"></span></button>
+                            <ng-form name="propForm">
+                                <div class="form-group form-inline"
+                                     ng-class="{ 'has-error' : propForm.propName.$invalid && !propForm.propName.$pristine }">
+                                    <h4 ng-show="prop.ismainthing">General</h4>
+                                    <h4 ng-show="!prop.ismainthing">Subordinate</h4>
+                                    <input type="text" class="form-control" name="propName" ng-model="prop.name" placeholder="Name"
+                                           ng-show="!prop.ismainthing" required>
+                                    <input type="text" class="form-control" ng-model="prop.description"
+                                           placeholder="Description" ng-show="!prop.ismainthing">
+                                    <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)"
+                                            ng-show="!prop.ismainthing"><span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                            </ng-form>
+                            <div class="form-group form-inline" ng-repeat="sensor in prop.sensors">
+                                <h5 style="margin-left: 20px">Sensor</h5>
+                                <ng-form name="sensorForm" style="margin-left: 20px"
+                                         ng-class="{ 'has-error' : sensorForm.sensorName.$invalid && !sensorForm.sensorName.$pristine }">
+                                    <input type="text" class="form-control input-sm" name="sensorName" ng-model="sensor.name"
+                                           placeholder="Sensor name" required>
+                                    <select class="form-control input-sm" ng-model="sensor.datatype"
+                                            ng-options="item.id as item.name for item in datatypes">
+                                    </select>
+                                    <button class="btn btn-danger btn-sm" ng-click="removeSensor(prop, sensor)"><span
+                                            class="glyphicon glyphicon-trash"></span></button>
+                                </ng-form>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-sm" ng-click="addNewSensor(prop)"><span
@@ -97,7 +104,7 @@
                 <a ui-sref="Things">
                     <button type="reset" class="btn btn-default">Cancel</button>
                 </a>
-                <button type="submit" class="btn btn-primary" ng-click="submit()">
+                <button type="submit" class="btn btn-primary" ng-disabled="thingForm.$invalid" ng-click="submit()">
                     <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                     <span>Save changes</span>
                 </button>
