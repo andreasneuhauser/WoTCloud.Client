@@ -71,6 +71,16 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'pages/account.html',
             controller: 'accountController'
         })
+        .state('Templates', {
+            url: '/Templates',
+            templateUrl: 'pages/templates.html',
+            controller: 'templateController'
+        })
+        .state('TemplateCreate', {
+            url: '/Templates/Create?isPublic',
+            templateUrl: 'pages/template_create.html',
+            controller: 'templateCreateController'
+        })
 });
 
 wotApp.config(function ($httpProvider) {
