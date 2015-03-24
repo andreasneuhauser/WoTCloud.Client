@@ -2,6 +2,28 @@ wotApp.controller('thingCreateController', function($scope, $stateParams, $state
     $scope.datatypes = [{id: 1, name: "bool"}, {id: 2, name: "int"}, {id: 3, name: "decimal"}, {id: 4, name: "string"} ];
     $scope.properties = [{id: 0, name: 'General', ismainthing: true, sensors: []}];
 
+    ThingService.getThings().then(function(res){
+        $scope.templateDataSource = new kendo.data.DataSource({
+            data: res.data });
+    }, function(error){
+        console.log('error during getThings');
+    });
+
+    $scope.applyTemplate = function() {
+        ThingService.getThingDetails($scope.selectedTemplate).then(function(res){
+
+            $scope.thingName = res.data.name;
+            $scope.thingDescription = res.data.description;
+            $scope.thingLongitude = res.data.longitude;
+            $scope.thingLatitude = res.data.latitude;
+
+            $scope.properties = res.data.children;
+
+        }, function(error){
+            console.log('error during getThing');
+        });
+    }
+
     $scope.addNewProperty = function() {
         var max = 0;
         for (var i = 1; i < $scope.properties.length; i++) {

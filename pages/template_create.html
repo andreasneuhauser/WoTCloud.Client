@@ -4,8 +4,8 @@
     <li class="active">Create</a></li>
 </ol>
 <div class="page-header">
-    <h1 ng-show="!$cope.isPublic">Create Template</h1>
-    <h1 ng-show="scope.isPublic">Create Public Template</h1>
+    <h1 ng-show="isPublic == 'false'">Create Template</h1>
+    <h1 ng-show="isPublic == 'true'">Create Public Template</h1>
     <br/>
 
     <form name="thingForm" novalidate>
@@ -21,7 +21,7 @@
                             <label class="col-lg-2 control-label">Name</label>
 
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" name="thingName" ng-model="thingName" required/>
+                                <input type="text" class="form-control" name="thingName" ng-model="thingName" maxlength="50" required/>
 
                                 <p ng-show="thingForm.thingName.$invalid && !thingForm.thingName.$pristine"
                                    class="help-block">Enter a name.</p>
@@ -32,7 +32,7 @@
 
                             <div class="col-lg-10">
                                 <textarea class="form-control" rows="3" id="textArea"
-                                          ng-model="thingDescription"></textarea>
+                                          ng-model="thingDescription" maxlength="200"></textarea>
                                 <span class="help-block">{{1000 - thingDescription.length}} remaining characters</span>
                             </div>
                         </div>
@@ -69,9 +69,9 @@
                                     <h4 ng-show="!prop.ismainthing">Subordinate</h4>
                                     <input type="text" class="form-control" name="propName" ng-model="prop.name"
                                            placeholder="Name"
-                                           ng-show="!prop.ismainthing" required>
+                                           ng-show="!prop.ismainthing" maxlength="50" required>
                                     <input type="text" class="form-control" ng-model="prop.description"
-                                           placeholder="Description" ng-show="!prop.ismainthing">
+                                           placeholder="Description" maxlength="200" ng-show="!prop.ismainthing">
                                     <button class="btn btn-danger btn-sm" ng-click="removeThing(prop)"
                                             ng-show="!prop.ismainthing"><span class="glyphicon glyphicon-trash"></span>
                                     </button>
@@ -83,7 +83,7 @@
                                          ng-class="{ 'has-error' : sensorForm.sensorName.$invalid && !sensorForm.sensorName.$pristine }">
                                     <input type="text" class="form-control input-sm" name="sensorName"
                                            ng-model="sensor.name"
-                                           placeholder="Sensor name" required>
+                                           placeholder="Sensor name" maxlength="50" required>
                                     <select class="form-control input-sm" ng-model="sensor.datatype"
                                             ng-options="item.id as item.name for item in datatypes">
                                     </select>
@@ -107,7 +107,7 @@
         </div>
         <div class="row">
             <div class="pull-right">
-                <a ui-sref="Things">
+                <a ui-sref="Templates">
                     <button type="reset" class="btn btn-default">Cancel</button>
                 </a>
                 <button type="submit" class="btn btn-primary" ng-disabled="thingForm.$invalid" ng-click="submit()">

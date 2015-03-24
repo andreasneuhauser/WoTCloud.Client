@@ -18,13 +18,13 @@
         <span>Refresh</span>
     </button>
     <div kendo-grid="privateTemplatesGrid"
-         k-data-source="gridData"
+         k-data-source="privateData"
          k-columns="gridColumns"
          k-selectable="true"
          k-sortable="true"
          k-pageable="true"
          k-scrollable="false"
-         k-on-change="selectedItem = dataItem"></div>
+         k-on-change="selectedPrivateItem = dataItem"></div>
     <hr/>
     <h1>Public Templates</h1>
     <br/>
@@ -41,11 +41,11 @@
         <span>Refresh</span>
     </button>
     <div kendo-grid="publicTemplatesGrid"
-         k-data-source="gridData"
+         k-data-source="publicData"
          k-columns="gridColumns"
          k-selectable="true"
          k-sortable="true"
          k-pageable="true"
          k-scrollable="false"
-         k-on-change="selectedItem = dataItem"></div>
+         k-on-change="selectedPublicItem = dataItem"></div>
 </div>
