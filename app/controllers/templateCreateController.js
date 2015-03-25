@@ -1,4 +1,4 @@
-wotApp.controller('templateCreateController', function($scope, $stateParams, $state, ThingService) {
+wotApp.controller('templateCreateController', function($scope, $stateParams, $state, TemplateService) {
     $scope.isPublic = $stateParams.isPublic;
     $scope.datatypes = [{id: 1, name: "bool"}, {id: 2, name: "int"}, {id: 3, name: "decimal"}, {id: 4, name: "string"} ];
     $scope.properties = [{id: 0, name: 'General', ismainthing: true, sensors: []}];
@@ -52,11 +52,23 @@ wotApp.controller('templateCreateController', function($scope, $stateParams, $st
             "children": $scope.properties
         };
 
-        ThingService.createThing(thing).then(function(res){
-            $state.go('Things');
-        }, function(error){
-            alert(error);
-            console.log('error during createThing');
-        });
+        if($scope.isPublic == 'true')
+        {
+            TemplateService.createPublicTemplate(thing).then(function(res){
+                $state.go('Templates');
+            }, function(error){
+                alert(error);
+                console.log('error during createPublicTemplate');
+            });
+        }
+        if($scope.isPublic == 'false')
+        {
+            TemplateService.createPrivateTemplate(thing).then(function(res){
+                $state.go('Templates');
+            }, function(error){
+                alert(error);
+                console.log('error during createPrivateTemplate');
+            });
+        }
     };
 });

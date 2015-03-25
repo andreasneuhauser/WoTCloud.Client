@@ -5,10 +5,12 @@
 <div class="page-header">
     <h1>My Templates</h1>
     <br/>
-    <button type="button" class="btn btn-primary btn-sm" ng-click="addPrivateTemplate()">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <span>Add</span>
-    </button>
+    <a ui-sref="TemplateCreate({isPublic: 'false'})">
+        <button type="button" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span>Add</span>
+        </button>
+    </a>
     <button type="button" class="btn btn-danger btn-sm" ng-show="selectedPrivateItem" ng-click="deletePrivateTemplate()">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         <span>Delete</span>
@@ -28,10 +30,12 @@
     <hr/>
     <h1>Public Templates</h1>
     <br/>
-    <button type="button" class="btn btn-primary btn-sm" ng-click="addPublicTemplate()">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <span>Add</span>
-    </button>
+    <a ui-sref="TemplateCreate({isPublic: 'true'})">
+        <button type="button" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span>Add</span>
+        </button>
+    </a>
     <button type="button" class="btn btn-danger btn-sm" ng-show="selectedPublicItem" ng-click="deletePublicTemplate()">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         <span>Delete</span>

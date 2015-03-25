@@ -21,14 +21,6 @@ wotApp.controller('templateController', function($scope, $state, TemplateService
         console.log('error during getPublicTemplates');
     });
 
-    $scope.addPrivateTemplate = function() {
-        $state.go('TemplateCreate', { isPublic: false });
-    };
-
-    $scope.addPublicTemplate = function() {
-        $state.go('TemplateCreate', { isPublic: true });
-    };
-
     $scope.deletePublicTemplate = function() {
         TemplateService.deletePublicTemplate($scope.selectedPublicItem.id).then(function(res){
             $scope.refreshPublic();

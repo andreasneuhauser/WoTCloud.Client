@@ -1,3 +1,6 @@
+/**
+ * The `TemplateService` service allows CRUD operations for Templates
+ */
 wotApp.factory('TemplateService', function($http, localStorageService){
     var srv = {};
 
@@ -11,9 +14,18 @@ wotApp.factory('TemplateService', function($http, localStorageService){
         return $http.get(srv._baseUrl + localStorageService.get('tenant_id') + '/templates/public');
     };
 
-    srv.createTemplate = function(value){
+    srv.createPrivateTemplate = function(value){
         return $http({
-            url: srv._baseUrl + localStorageService.get('tenant_id') + '/things',
+            url: srv._baseUrl + localStorageService.get('tenant_id') + '/templates',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            data: value
+        });
+    };
+
+    srv.createPublicTemplate = function(value){
+        return $http({
+            url: srv._baseUrl + localStorageService.get('tenant_id') + '/templates/public',
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             data: value
@@ -37,8 +49,11 @@ wotApp.factory('TemplateService', function($http, localStorageService){
         getPublicTemplates: function(){
             return srv.getPublicTemplates();
         },
-        createTemplate: function(data){
-            return srv.createTemplate(data);
+        createPrivateTemplate: function(data){
+            return srv.createPrivateTemplate(data);
+        },
+        createPublicTemplate: function(data){
+            return srv.createPublicTemplate(data);
         },
         deleteTemplate: function(templateId){
             return srv.deleteTemplate(templateId);
