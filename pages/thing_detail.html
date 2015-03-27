@@ -45,23 +45,55 @@
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                 <span>View</span>
             </button>
-            <button type="button" class="btn btn-danger btn-sm" ng-show="selectedItem" ng-click="deleteSensor()">
+            <button type="button" class="btn btn-danger btn-sm" ng-show="selectedSensorItem" ng-click="deleteSensor()">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 <span>Delete</span>
             </button>
-            <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()">
+            <button type="button" class="btn btn-primary btn-sm" ng-click="refreshSensors()">
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                 <span>Refresh</span>
             </button>
             <div options="mainGridOptions"
                  kendo-grid="sensorGrid"
-                 k-data-source="gridData"
+                 k-data-source="sensorData"
                  k-columns="gridColumns"
                  k-selectable="true"
                  k-groupable="true"
                  k-pageable="true"
                  k-scrollable="false"
-                 k-on-change="selectedItem = dataItem"></div>
+                 k-on-change="selectedSensorItem = dataItem"></div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Aktuatoren</h3>
+        </div>
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary btn-sm" ng-click="addSensor()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span>Add</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" ng-show="selectedActuatorItem" ng-click="viewActuator()">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                <span>View</span>
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" ng-show="selectedItem" ng-click="deleteActuator()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span>Delete</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" ng-click="refreshActuators()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                <span>Refresh</span>
+            </button>
+            <div options="mainGridOptions"
+                 kendo-grid="actuatorGrid"
+                 k-data-source="actuatorData"
+                 k-columns="gridColumns"
+                 k-selectable="true"
+                 k-groupable="true"
+                 k-pageable="true"
+                 k-scrollable="false"
+                 k-on-change="selectedActuatorItem = dataItem"></div>
         </div>
     </div>
 </div>

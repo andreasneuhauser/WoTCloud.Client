@@ -4,7 +4,10 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
 
     $scope.$on("kendoWidgetCreated", function(event, widget){
         if (widget === $scope.sensorGrid) {
-            $scope.sensorGrid.element.on('dblclick', function (e) { $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedItem.id }) });
+            $scope.sensorGrid.element.on('dblclick', function (e) { $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedSensorItem.id }) });
+        }
+        if (widget === $scope.actuatorGrid) {
+            $scope.sensorGrid.element.on('dblclick', function (e) { $state.go('ActuatorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedActuatorItem.id }) });
         }
     });
 
@@ -36,7 +39,7 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
             group: { field: "group" },
             pageSize: 10
         });
-        $scope.gridData = dataSource;
+        $scope.sensorData = dataSource;
     }, function(error){
         console.log('error during getSensors');
     });
@@ -46,23 +49,27 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
     };
 
     $scope.viewSensor = function() {
-        $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedItem.id });
+        $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedSensorItem.id });
+    };
+
+    $scope.viewActuator = function() {
+        $state.go('ActuatorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedActuatorItem.id });
     };
 
     $scope.deleteSensor = function() {
-        SensorService.deleteSensor($scope.thingId, $scope.selectedItem.id).then(function(res){
-            $scope.refresh();
+        SensorService.deleteSensor($scope.thingId, $scope.selectedSensorItem.id).then(function(res){
+            $scope.refreshSensors();
         }, function(error){
-            console.log('error during getThings');
+            console.log('error during deleteSensor');
         });
     };
 
-    $scope.refresh = function() {
+    $scope.refreshSensors = function() {
         ThingService.getSensors($scope.thingId).then(function(res){
             var dataSource = new kendo.data.DataSource({
                 data: res.data,
                 group: { field: "group" }});
-            $scope.gridData = dataSource;
+            $scope.sensorData = dataSource;
         }, function(error){
             console.log('error during getSensors');
         });

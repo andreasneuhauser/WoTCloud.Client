@@ -1,0 +1,31 @@
+<ol class="breadcrumb">
+    <li><a href="#/Home">Home</a></li>
+    <li><a ui-sref="Things">Things</a></li>
+    <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">{{thingId}}</a></li>
+    <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">Actuators</a></li>
+    <li class="active">{{actuatorId}}</a></li>
+</ol>
+<div class="page-header">
+    <h1>{{name}}</h1>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Details</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="New Value" ng-model="txtNewValue">
+                        </div>
+                        <button type="submit" class="btn btn-primary" ng-click="setNewValue()">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <span>Set Value</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

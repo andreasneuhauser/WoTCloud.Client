@@ -66,6 +66,11 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'pages/sensor_detail.html',
             controller: 'sensorDetailController'
         })
+        .state('ActuatorDetail', {
+            url: "/Things/:thingId/Actuators/:actuatorId",
+            templateUrl: 'pages/actuator_detail.html',
+            controller: 'actuatorDetailController'
+        })
         .state('Account', {
             url: '/Account',
             templateUrl: 'pages/account.html',
