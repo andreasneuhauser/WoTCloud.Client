@@ -1,7 +1,7 @@
 wotApp.controller('templateCreateController', function($scope, $stateParams, $state, TemplateService) {
     $scope.isPublic = $stateParams.isPublic;
     $scope.datatypes = [{id: 1, name: "bool"}, {id: 2, name: "int"}, {id: 3, name: "decimal"}, {id: 4, name: "string"} ];
-    $scope.properties = [{id: 0, name: 'General', ismainthing: true, sensors: []}];
+    $scope.properties = [{id: 0, name: 'General', ismainthing: true, sensors: [], actuators: []}];
 
     $scope.addNewProperty = function() {
         var max = 0;
@@ -11,7 +11,7 @@ wotApp.controller('templateCreateController', function($scope, $stateParams, $st
             }
         }
 
-        $scope.properties.push({"id": max + 1, "changed": true,"sensors":[] });
+        $scope.properties.push({"id": max + 1, "changed": true, "sensors": [], "actuators": []});
     };
 
     $scope.addNewSensor = function(property) {
@@ -20,6 +20,14 @@ wotApp.controller('templateCreateController', function($scope, $stateParams, $st
         }).indexOf(property.id);
 
         $scope.properties[index].sensors.push({"name": "", "datatype": 4, "changed": true});
+    };
+
+    $scope.addNewActuator = function(property) {
+        var index = $scope.properties.map(function(el) {
+            return el.id;
+        }).indexOf(property.id);
+
+        $scope.properties[index].actuators.push({"name": "", "uri": "", "changed": true});
     };
 
     $scope.removeThing = function(property) {
@@ -42,13 +50,23 @@ wotApp.controller('templateCreateController', function($scope, $stateParams, $st
         $scope.properties[indexProp].sensors.splice(indexSens, 1);
     };
 
+    $scope.removeActuator = function(property, act) {
+        var indexProp = $scope.properties.map(function(el) {
+            return el.id;
+        }).indexOf(property.id);
+
+        var indexSens = $scope.properties[indexProp].actuators.map(function(el) {
+            return el.name;
+        }).indexOf(act.name);
+
+        $scope.properties[indexProp].actuators.splice(indexSens, 1);
+    };
+
     $scope.submit = function() {
         var thing =
         {
             "name": $scope.thingName,
             "description": $scope.thingDescription,
-            "longitude": $scope.thingLongitude,
-            "latitude": $scope.thingLatitude,
             "children": $scope.properties
         };
 

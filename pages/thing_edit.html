@@ -9,7 +9,7 @@
 
     <form name="thingForm" novalidate>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">Details</h3>
@@ -32,20 +32,19 @@
                                 <span class="help-block">{{200 - thingDescription.length}} remaining characters</span>
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error' : thingForm.inputLongitude.$invalid && !thingForm.inputLongitude.$pristine }">
-                            <label class="col-lg-2 control-label">Longitude</label>
-
-                            <div class="col-lg-10">
-                                <input type="number" class="form-control" name="inputLongitude" ng-model="thingLongitude" min="-180" max="180"/>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : thingForm.inputLatitude.$invalid && !thingForm.inputLatitude.$pristine }">
-                            <label class="col-lg-2 control-label">Latitude</label>
-
-                            <div class="col-lg-10">
-                                <input type="number" class="form-control" name="inputLatitude" ng-model="thingLatitude" min="-90" max="90"/>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Location</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+                            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+                            </ui-gmap-marker>
+                        </ui-gmap-google-map>
                     </div>
                 </div>
             </div>
@@ -88,6 +87,24 @@
                             <div class="form-group">
                                 <button class="btn btn-primary btn-sm" ng-click="addNewSensor(prop)"><span
                                         class="glyphicon glyphicon-plus"></span> <span>Add Sensor</span></button>
+                            </div>
+                            <div class="form-group form-inline" ng-repeat="actuator in prop.actuators">
+                                <h5 style="margin-left: 20px">Actuator</h5>
+                                <ng-form name="actForm" style="margin-left: 20px"
+                                         ng-class="{ 'has-error' : actForm.actName.$invalid && !actForm.actName.$pristine || actForm.actUri.$invalid && !actForm.actUri.$pristine}">
+                                    <input type="text" class="form-control input-sm" name="actName"
+                                           ng-model="actuator.name"
+                                           placeholder="Actuator name" maxlength="50" required>
+                                    <input type="url" class="form-control input-sm" name="actUri"
+                                           ng-model="actuator.uri"
+                                           placeholder="Actuator URI" maxlength="255" required>
+                                    <button class="btn btn-danger btn-sm" ng-click="removeActuator(prop, actuator)"><span
+                                            class="glyphicon glyphicon-trash"></span></button>
+                                </ng-form>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-sm" ng-click="addNewActuator(prop)"><span
+                                        class="glyphicon glyphicon-plus"></span> <span>Add Actuator</span></button>
                             </div>
                         </div>
 
