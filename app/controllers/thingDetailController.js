@@ -7,7 +7,7 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
             $scope.sensorGrid.element.on('dblclick', function (e) { $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedSensorItem.id }) });
         }
         if (widget === $scope.actuatorGrid) {
-            $scope.sensorGrid.element.on('dblclick', function (e) { $state.go('ActuatorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedActuatorItem.id }) });
+            $scope.actuatorGrid.element.on('dblclick', function (e) { $state.go('ActuatorDetail', { thingId: $scope.thingId, actuatorId: $scope.selectedActuatorItem.id }) });
         }
     });
 
@@ -44,6 +44,16 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
         console.log('error during getSensors');
     });
 
+    ThingService.getActuators($scope.thingId).then(function(res){
+        var dataSource = new kendo.data.DataSource({
+            data: res.data,
+            pageSize: 15
+        });
+        $scope.actuatorData = dataSource;
+    }, function(error){
+        console.log('error during getActuators');
+    });
+
     $scope.addSensor = function() {
         $state.go('ThingEdit', { thingId: $scope.thingId });
     };
@@ -53,7 +63,7 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
     };
 
     $scope.viewActuator = function() {
-        $state.go('ActuatorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedActuatorItem.id });
+        $state.go('ActuatorDetail', { thingId: $scope.thingId, actuatorId: $scope.selectedActuatorItem.id });
     };
 
     $scope.deleteSensor = function() {

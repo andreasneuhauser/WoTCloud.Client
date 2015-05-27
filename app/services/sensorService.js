@@ -4,7 +4,7 @@ wotApp.factory('SensorService', function($http, localStorageService){
     srv._baseUrl = 'https://wotcloud.azurewebsites.net/api/';
 
     srv.getSensor = function(thingId, sensorId){
-        return $http.get(srv._baseUrl + thingId + '/sensors/' + sensorId);
+        return $http.get(srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId + '/sensors/' + sensorId);
     };
 
     srv.getSensorValues = function(thingId, sensorId){

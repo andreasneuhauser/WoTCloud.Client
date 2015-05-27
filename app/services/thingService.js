@@ -19,6 +19,10 @@ wotApp.factory('ThingService', function($http, localStorageService){
         return $http.get(srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId + '/sensors');
     };
 
+    srv.getActuators = function(thingId){
+        return $http.get(srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId + '/actuators');
+    };
+
     srv.createThing = function(value){
         return $http({
             url: srv._baseUrl + localStorageService.get('tenant_id') + '/things',
@@ -48,6 +52,9 @@ wotApp.factory('ThingService', function($http, localStorageService){
 
     // Public API
     return {
+        getActuators: function(thingId){
+            return srv.getActuators(thingId);
+        },
         getThings: function(){
             return srv.getThings();
         },
