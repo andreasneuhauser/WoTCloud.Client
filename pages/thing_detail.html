@@ -95,4 +95,31 @@
                  k-on-change="selectedActuatorItem = dataItem"></div>
         </div>
     </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Rules</h3>
+        </div>
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary btn-sm" ng-click="addRule()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span>Add</span>
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" ng-show="selectedItem" ng-click="deleteRule()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span>Delete</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" ng-click="refreshRules()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                <span>Refresh</span>
+            </button>
+            <div options="mainGridOptions"
+                 kendo-grid="ruleGrid"
+                 k-data-source="ruleData"
+                 k-columns="gridColumns"
+                 k-selectable="true"
+                 k-pageable="true"
+                 k-scrollable="false"
+                 k-on-change="selectedRuleItem = dataItem"></div>
+        </div>
+    </div>
 </div>

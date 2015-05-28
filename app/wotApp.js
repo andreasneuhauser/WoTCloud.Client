@@ -47,12 +47,17 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'thingController'
         })
         .state('ThingCreate', {
-            url: '/Thing/Create',
+            url: '/Things/Create',
             templateUrl: 'pages/thing_create.html',
             controller: 'thingCreateController'
         })
+        .state('RuleCreate', {
+            url: '/Things/:thingId/Rule/Create?templateId',
+            templateUrl: 'pages/thing_create_rules.html',
+            controller: 'thingRulesController'
+        })
         .state('ThingEdit', {
-            url: '/Thing/Edit/:thingId',
+            url: '/Things/:thingId/Edit',
             templateUrl: 'pages/thing_edit.html',
             controller: 'thingEditController'
         })

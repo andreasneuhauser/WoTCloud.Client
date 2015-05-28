@@ -58,6 +58,10 @@ wotApp.controller('thingDetailController', function($scope, $stateParams, $state
         $state.go('ThingEdit', { thingId: $scope.thingId });
     };
 
+    $scope.addRule = function() {
+        $state.go('RuleCreate', { thingId: $scope.thingId });
+    };
+
     $scope.viewSensor = function() {
         $state.go('SensorDetail', { thingId: $scope.thingId, sensorId: $scope.selectedSensorItem.id });
     };

@@ -6,8 +6,12 @@ wotApp.factory('TemplateService', function($http, localStorageService){
 
     srv._baseUrl = 'https://wotcloud.azurewebsites.net/api/';
 
-    srv.getPrivateTemplates = function(){
+    srv.getTemplates = function(){
         return $http.get(srv._baseUrl + localStorageService.get('tenant_id') + '/templates');
+    };
+
+    srv.getPrivateTemplates = function(){
+        return $http.get(srv._baseUrl + localStorageService.get('tenant_id') + '/templates/private');
     };
 
     srv.getPublicTemplates = function(){
@@ -43,6 +47,9 @@ wotApp.factory('TemplateService', function($http, localStorageService){
 
     // Public API
     return {
+        getTemplates: function(){
+            return srv.getTemplates();
+        },
         getPrivateTemplates: function(){
             return srv.getPrivateTemplates();
         },

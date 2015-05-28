@@ -1,0 +1,123 @@
+<ol class="breadcrumb">
+    <li><a href="#/Home">Home</a></li>
+    <li><a ui-sref="Things">Things</a></li>
+    <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">{{thingId}}</a></li>
+    <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">Rules</a></li>
+    <li class="active">Create</a></li>
+</ol>
+<div class="page-header">
+    <h1>Add Rules</h1>
+    <br/>
+    <form name="thingForm" novalidate>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Rules</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well" ng-repeat="rule in rules">
+                            <ng-Form name="ruleForm" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Rule name</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" name="ruleName"
+                                               ng-model="rule.name" maxlength="400"/>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-danger" ng-click="removeRule(rule)"><span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Event</label>
+                                    <div class="radio">
+                                        <label><input id="eventData" type="radio" ng-model="rule.istimedriven" ng-value="false">Data</label>
+                                        <label><input id="eventTime" type="radio" ng-model="rule.istimedriven" ng-value="true">Time</label>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="rule.istimedriven">
+                                    <label class="col-sm-2 control-label">Time</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="time"
+                                               ng-model="rule.eventtime" placeholder="hh:mm" maxlength="5"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Condition</label>
+                                    <div class="col-sm-3">
+                                        <select kendo-drop-down-list
+                                                k-data-text-field="'name'"
+                                                k-data-value-field="'id'"
+                                                k-data-source="sensorDataSource"
+                                                ng-model="rule.csensorid"></select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select kendo-drop-down-list
+                                                k-data-text-field="'name'"
+                                                k-data-value-field="'id'"
+                                                k-data-source="operatorDataSource"
+                                                ng-model="rule.coperatorid"></select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="conditionValue"
+                                               ng-model="rule.cvalue" placeholder="Value" maxlength="25"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Action</label>
+                                    <div class="radio">
+                                        <label><input id="actionActuator" type="radio" ng-model="rule.isactionactuator" ng-value="true">Actuator</label>
+                                        <label><input id="actionEmail" type="radio" ng-model="rule.isactionactuator" ng-value="false">E-Mail</label>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="rule.isactionactuator">
+                                    <label class="col-sm-2 control-label">Actuator</label>
+                                    <div class="col-sm-3">
+                                        <select kendo-drop-down-list
+                                                k-data-text-field="'name'"
+                                                k-data-value-field="'id'"
+                                                k-data-source="actuatorDataSource"
+                                                ng-model="rule.actuatorId"></select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="actValue"
+                                               ng-model="rule.actuatorValue" placeholder="Value" maxlength="25"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="!rule.isactionactuator">
+                                    <label class="col-sm-2 control-label">E-Mail</label>
+                                    <div class="col-sm-3">
+                                        <input type="email" class="form-control" name="emailTo"
+                                               ng-model="rule.emailto" placeholder="To" maxlength="150"/>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" name="emailText"
+                                               ng-model="rule.emailtext" placeholder="Text" maxlength="400"/>
+                                    </div>
+                                </div>
+                            </ng-form>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-sm btn-block" ng-click="addNewRule()"><span
+                                    class="glyphicon glyphicon-plus"></span> <span>Add Rule</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="pull-right">
+                <a ui-sref="Things">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                </a>
+                <button type="submit" class="btn btn-primary" ng-disabled="thingForm.$invalid" ng-click="submit()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -11,13 +11,11 @@
         <div class="row">
             <div class="form-group">
                 <label class="col-lg-1 control-label">Template</label>
-
                 <div class="col-lg-10">
                     <select kendo-drop-down-list
                             k-data-text-field="'name'"
                             k-data-value-field="'id'"
                             k-data-source="templateDataSource"
-                            style="width: 400px"
                             ng-model="selectedTemplate"></select>
                     <button type="button" class="btn btn-primary btn-sm" ng-click="applyTemplate()">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

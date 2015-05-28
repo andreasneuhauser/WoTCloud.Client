@@ -1,4 +1,4 @@
-wotApp.controller('thingCreateController', function($scope, $stateParams, $state, ThingService) {
+wotApp.controller('thingCreateController', function($scope, $stateParams, $state, ThingService, TemplateService) {
     $scope.datatypes = [{id: 1, name: "bool"}, {id: 2, name: "int"}, {id: 3, name: "decimal"}, {id: 4, name: "string"} ];
     $scope.properties = [{id: 0, name: 'General', ismainthing: true, sensors: [], actuators: []}];
 
@@ -13,16 +13,17 @@ wotApp.controller('thingCreateController', function($scope, $stateParams, $state
         options: { draggable: true }
     };
 
-    ThingService.getThings().then(function(res){
+    TemplateService.getTemplates().then(function(res){
         $scope.templateDataSource = new kendo.data.DataSource({
-            data: res.data });
+            data: res.data
+        });
     }, function(error){
-        console.log('error during getThings');
+        console.log('error during getTemplates');
     });
 
     $scope.applyTemplate = function() {
         ThingService.getThingDetails($scope.selectedTemplate).then(function(res){
-
+            $scope.templateId = res.data.id;
             $scope.thingName = res.data.name;
             $scope.thingDescription = res.data.description;
             $scope.properties = res.data.children;
@@ -104,7 +105,7 @@ wotApp.controller('thingCreateController', function($scope, $stateParams, $state
         console.log(JSON.stringify(thing));
 
         ThingService.createThing(thing).then(function(res){
-            $state.go('Things');
+            $state.go('RuleCreate', { thingId: res.data, templateId: $scope.templateId})
         }, function(error){
             alert(error);
             console.log('error during createThing');
