@@ -32,15 +32,6 @@ wotApp.factory('ThingService', function($http, localStorageService){
         });
     };
 
-    srv.createRules = function(thingId, value){
-        return $http({
-            url: srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId + '/rules',
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            data: value
-        });
-    };
-
     srv.editThing = function(thingId, value){
         return $http({
             url: srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId,
@@ -78,9 +69,6 @@ wotApp.factory('ThingService', function($http, localStorageService){
         },
         createThing: function(data){
             return srv.createThing(data);
-        },
-        createRules: function(thingId, data){
-            return srv.createRules(thingId, data);
         },
         editThing: function(thingId, data){
             return srv.editThing(thingId, data);

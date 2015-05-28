@@ -1,4 +1,4 @@
-wotApp.controller('thingRulesController', function($scope, $stateParams, $state, ThingService) {
+wotApp.controller('thingRulesController', function($scope, $stateParams, $state, ThingService, RuleService) {
     $scope.rules =[{id: 0, name:"", istimedriven: false, eventtime: "", csensorId: "", coperatorId:"", cvalue: "", isactionactuator: true, actuatorid:"", actuatorvalue: "", emailto: "", emailtext: ""}];
     $scope.operatorDataSource = new kendo.data.DataSource({ data: [{id: 0, name:"kleiner"}, {id: 1, name:"kleiner gleich"}, {id: 2, name:"gr\u00f6sser"}, {id: 3, name:"gr\u00f6sser gleich"}, {id: 4, name:"gleich"}, {id: 5, name:"ungleich"}] });
     $scope.thingId = $stateParams.thingId;
@@ -47,5 +47,12 @@ wotApp.controller('thingRulesController', function($scope, $stateParams, $state,
 
     $scope.submit = function() {
         console.log(JSON.stringify($scope.rules));
+
+        RuleService.createRules($scope.thingId, $scope.rules).then(function(res){
+            $state.go('Things');
+        }, function(error){
+            alert(error);
+            console.log('error during createRules');
+        });
     };
 });
