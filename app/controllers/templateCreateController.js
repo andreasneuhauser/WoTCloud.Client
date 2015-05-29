@@ -73,7 +73,7 @@ wotApp.controller('templateCreateController', function($scope, $stateParams, $st
         if($scope.isPublic == 'true')
         {
             TemplateService.createPublicTemplate(thing).then(function(res){
-                $state.go('Templates');
+                $state.go('RuleCreate', { thingId: res.data, previousStateTemplate: true})
             }, function(error){
                 alert(error);
                 console.log('error during createPublicTemplate');
@@ -82,7 +82,7 @@ wotApp.controller('templateCreateController', function($scope, $stateParams, $st
         if($scope.isPublic == 'false')
         {
             TemplateService.createPrivateTemplate(thing).then(function(res){
-                $state.go('Templates');
+                $state.go('RuleCreate', { thingId: res.data, previousStateTemplate: true})
             }, function(error){
                 alert(error);
                 console.log('error during createPrivateTemplate');

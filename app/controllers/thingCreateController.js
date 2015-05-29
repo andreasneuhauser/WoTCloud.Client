@@ -27,7 +27,6 @@ wotApp.controller('thingCreateController', function($scope, $stateParams, $state
             $scope.thingName = res.data.name;
             $scope.thingDescription = res.data.description;
             $scope.properties = res.data.children;
-
         }, function(error){
             console.log('error during getThing');
         });
@@ -102,10 +101,8 @@ wotApp.controller('thingCreateController', function($scope, $stateParams, $state
             "children": $scope.properties
         };
 
-        console.log(JSON.stringify(thing));
-
         ThingService.createThing(thing).then(function(res){
-            $state.go('RuleCreate', { thingId: res.data, templateId: $scope.templateId})
+            $state.go('RuleCreate', { thingId: res.data, templateId: $scope.templateId, previousStateTemplate: false})
         }, function(error){
             alert(error);
             console.log('error during createThing');

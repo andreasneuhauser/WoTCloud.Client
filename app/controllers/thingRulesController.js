@@ -1,14 +1,14 @@
 wotApp.controller('thingRulesController', function($scope, $stateParams, $state, ThingService, RuleService) {
-    $scope.rules =[{id: 0, name:"", istimedriven: false, eventtime: "", csensorId: "", coperatorId:"", cvalue: "", isactionactuator: true, actuatorid:"", actuatorvalue: "", emailto: "", emailtext: ""}];
-    $scope.operatorDataSource = new kendo.data.DataSource({ data: [{id: 0, name:"kleiner"}, {id: 1, name:"kleiner gleich"}, {id: 2, name:"gr\u00f6sser"}, {id: 3, name:"gr\u00f6sser gleich"}, {id: 4, name:"gleich"}, {id: 5, name:"ungleich"}] });
+    $scope.rules =[{id: 0, name:"", istimedriven: false, eventtime: "", csensorid: "", coperatorid:"", cvalue: "", isactionactuator: true, actuatorid:"", actuatorvalue: "", emailto: "", emailtext: ""}];
+    $scope.operatorDataSource = new kendo.data.DataSource({ data: [{id: 1, name:"kleiner"}, {id: 2, name:"kleiner gleich"}, {id: 3, name:"gr\u00f6sser"}, {id: 4, name:"gr\u00f6sser gleich"}, {id: 5, name:"gleich"}, {id: 6, name:"ungleich"}] });
     $scope.thingId = $stateParams.thingId;
+    $scope.previousStateTemplate = $stateParams.previousStateTemplate;
 
-    //if template was selected during creation
     if ($stateParams.templateId) {
-        ThingService.getThingDetails($stateParams.templateId).then(function(res){
-            $scope.rules = res.data.rules;
+        RuleService.getRuleDetails($stateParams.templateId).then(function(res){
+            $scope.rules = res.data;
         }, function(error){
-            console.log('error during getThingDetails');
+            console.log('error during getRuleDetails');
         });
     }
 
@@ -34,7 +34,7 @@ wotApp.controller('thingRulesController', function($scope, $stateParams, $state,
             }
         }
 
-        $scope.rules.push({id: max + 1, name:"", istimedriven: false, eventtime: "", csensorId: "", coperatorId:"", cvalue: "", isactionactuator: true, actuatorid:"", actuatorvalue: "", emailto: "", emailtext: ""});
+        $scope.rules.push({id: max + 1, name:"", istimedriven: false, eventtime: "", csensorid: "", coperatorid:"", cvalue: "", isactionactuator: true, actuatorid:"", actuatorvalue: "", emailto: "", emailtext: ""});
     };
 
     $scope.removeRule = function(property) {
@@ -49,9 +49,12 @@ wotApp.controller('thingRulesController', function($scope, $stateParams, $state,
         console.log(JSON.stringify($scope.rules));
 
         RuleService.createRules($scope.thingId, $scope.rules).then(function(res){
-            $state.go('Things');
+            if($stateParams.previousStateTemplate == true){
+                $state.go('Templates');
+            }else{
+                $state.go('Things');
+            }
         }, function(error){
-            alert(error);
             console.log('error during createRules');
         });
     };

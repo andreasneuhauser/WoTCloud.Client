@@ -16,6 +16,15 @@ wotApp.factory('ActuatorService', function($http, localStorageService){
         });
     };
 
+    srv.deleteActuator = function(thingId, actId){
+        return $http({
+            url: srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId + '/actuators/' + actId,
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            data: actId
+        });
+    };
+
     // Public API
     return {
         getActuator: function(thingId, actuatorId){
@@ -23,6 +32,9 @@ wotApp.factory('ActuatorService', function($http, localStorageService){
         },
         fireActuator : function(thingId, actuatorId, value){
             return srv.fireActuator(thingId, actuatorId, value);
+        },
+        deleteActuator: function(thingId, actId){
+            return srv.deleteActuator(thingId, actId);
         }
     };
 });

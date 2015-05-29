@@ -1,12 +1,13 @@
 <ol class="breadcrumb">
     <li><a href="#/Home">Home</a></li>
-    <li><a ui-sref="Things">Things</a></li>
-    <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">{{thingId}}</a></li>
+    <li ng-show="!previousStateTemplate"><a ui-sref="Things">Things</a></li>
+    <li ng-show="previousStateTemplate"><a ui-sref="Templates">Templates</a></li>
+    <li>{{thingId}}</li>
     <li><a ui-sref="ThingDetail({thingId: '{{thingId}}'})">Rules</a></li>
     <li class="active">Create</a></li>
 </ol>
 <div class="page-header">
-    <h1>Add Rules</h1>
+    <h1>Rules</h1>
     <br/>
     <form name="thingForm" novalidate>
         <hr />
@@ -79,11 +80,11 @@
                                                 k-data-text-field="'name'"
                                                 k-data-value-field="'id'"
                                                 k-data-source="actuatorDataSource"
-                                                ng-model="rule.actuatorId"></select>
+                                                ng-model="rule.actuatorid"></select>
                                     </div>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" name="actValue"
-                                               ng-model="rule.actuatorValue" placeholder="Value" maxlength="25"/>
+                                               ng-model="rule.actuatorvalue" placeholder="Value" maxlength="25"/>
                                     </div>
                                 </div>
                                 <div class="form-group" ng-show="!rule.isactionactuator">
@@ -113,7 +114,7 @@
                 <a ui-sref="Things">
                     <button type="reset" class="btn btn-default">Cancel</button>
                 </a>
-                <button type="submit" class="btn btn-primary" ng-disabled="thingForm.$invalid" ng-click="submit()">
+                <button type="submit" class="btn btn-primary" ng-click="submit()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <span>Save Changes</span>
                 </button>

@@ -52,7 +52,11 @@ wotApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'thingCreateController'
         })
         .state('RuleCreate', {
-            url: '/Things/:thingId/Rule/Create?templateId',
+            url: '/Things/:thingId/Rule/Create',
+            params: {
+                templateId: null,
+                previousStateTemplate: null
+            },
             templateUrl: 'pages/thing_create_rules.html',
             controller: 'thingRulesController'
         })
