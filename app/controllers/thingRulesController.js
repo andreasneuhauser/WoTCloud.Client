@@ -1,6 +1,6 @@
 wotApp.controller('thingRulesController', function($scope, $stateParams, $state, ThingService, RuleService) {
     $scope.rules =[{id: 0, name:"", istimedriven: false, eventtime: "", csensorid: "", coperatorid:"", cvalue: "", isactionactuator: true, actuatorid:"", actuatorvalue: "", emailto: "", emailtext: ""}];
-    $scope.operatorDataSource = new kendo.data.DataSource({ data: [{id: 1, name:"kleiner"}, {id: 2, name:"kleiner gleich"}, {id: 3, name:"gr\u00f6sser"}, {id: 4, name:"gr\u00f6sser gleich"}, {id: 5, name:"gleich"}, {id: 6, name:"ungleich"}] });
+    $scope.operatorDataSource = new kendo.data.DataSource({ data: [{id: 1, name:"Less"}, {id: 2, name:"Less Or Equal"}, {id: 3, name:"Greater"}, {id: 4, name:"Greater or Equal"}, {id: 5, name:"Equal"}, {id: 6, name:"Not Equal"}] });
     $scope.thingId = $stateParams.thingId;
     $scope.previousStateTemplate = $stateParams.previousStateTemplate;
 
