@@ -10,7 +10,7 @@ wotApp.factory('ActuatorService', function($http, localStorageService){
     srv.fireActuator = function(thingId, actuatorId, value){
         return $http({
             url: srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId + '/actuators/' + actuatorId,
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             data: value
         });

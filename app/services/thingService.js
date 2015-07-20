@@ -35,7 +35,7 @@ wotApp.factory('ThingService', function($http, localStorageService){
     srv.editThing = function(thingId, value){
         return $http({
             url: srv._baseUrl + localStorageService.get('tenant_id') + '/things/' + thingId,
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             data: value
         });
