@@ -8,7 +8,7 @@ wotApp.factory('TenantService', function($http){
     };
 
     srv.updateCompanyName = function(tenantId, companyName) {
-        return $http.post(srv._baseUrl + '/api/tenants/' + tenantId + '/name', { companyName : companyName }, { headers: { 'Content-Type': 'application/json' } });
+        return $http.put(srv._baseUrl + '/api/tenants/' + tenantId + '/name', { companyName : companyName }, { headers: { 'Content-Type': 'application/json' } });
     };
     // Public API
     return {

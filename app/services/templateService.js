@@ -20,7 +20,7 @@ wotApp.factory('TemplateService', function($http, localStorageService){
 
     srv.createPrivateTemplate = function(value){
         return $http({
-            url: srv._baseUrl + localStorageService.get('tenant_id') + '/templates',
+            url: srv._baseUrl + localStorageService.get('tenant_id') + '/templates/private',
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             data: value
